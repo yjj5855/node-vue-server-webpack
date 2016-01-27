@@ -10,6 +10,9 @@ var App = Vue.extend({})
 
 Vue.use(VueRouter)
 
+
+
+
 var router = new VueRouter({
     history: true, //html5模式 去掉锚点
     saveScrollPosition: true //记住页面的滚动位置 html5模式适用

@@ -8,3 +8,6 @@ Thumbs.db
 env.js
 app.js
 app.js.map
+
+routes/**.js
+routes/**.js*
