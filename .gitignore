@@ -2,6 +2,7 @@
 bower_components
 node_modules
 __build__
+typings
 .DS_Store
 Thumbs.db
 env.js
