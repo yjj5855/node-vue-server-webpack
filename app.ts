@@ -37,8 +37,6 @@ if (env === 'development') {
     app.use(errorHandler());
 }
 
-
-
 // Routes
 
 app.get('/', index.index);
