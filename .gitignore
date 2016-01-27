@@ -6,3 +6,5 @@ typings
 .DS_Store
 Thumbs.db
 env.js
+./app.js
+./app.js.map
