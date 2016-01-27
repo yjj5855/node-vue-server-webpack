@@ -1,8 +1,7 @@
 .idea/
 bower_components
 node_modules
-dist
+__build__
 .DS_Store
 Thumbs.db
-bin
 env.js
