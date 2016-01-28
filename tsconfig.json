@@ -5,8 +5,7 @@
     },
     "files": [
         "./typings/tsd.d.ts",
-        "./routes/*.ts",
-        "./db.ts",
+        ".server/routes/*.ts",
         "./app.ts"
     ]
 }

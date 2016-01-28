@@ -9,5 +9,5 @@ env.js
 app.js
 app.js.map
 
-routes/*.js
-routes/*.js.map
+server/routes/*.js
+server/routes/*.js.map

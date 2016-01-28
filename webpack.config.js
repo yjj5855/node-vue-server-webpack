@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'inline-source-map',
 
   entry: {
-    app: "./public/javascripts/app"
+    app: "./client/app"
   },
 
   output: {

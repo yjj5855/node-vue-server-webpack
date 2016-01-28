@@ -1,4 +1,4 @@
-import Vue from '../public/javascripts/vue.min'
+import Vue from '../lib/vue.min'
 
 let Bar = Vue.extend({
     template: '<p>This is bar!</p>',

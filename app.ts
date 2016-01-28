@@ -9,9 +9,9 @@ var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 var WebpackConfig = require('./webpack.config')
 
-import * as index from "./routes/index";
-import * as foo from "./routes/foo";
-import * as bar from "./routes/bar";
+import * as index from "./server/routes/index";
+import * as foo from "./server/routes/foo";
+import * as bar from "./server/routes/bar";
 
 var app = express();
 
@@ -24,7 +24,7 @@ app.use(webpackDevMiddleware(webpack(WebpackConfig), {
 
 // Configuration
 
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/server/views');
 app.set('view engine', 'ejs');
 app.set('view options', { layout: false });
 app.use(bodyParser.urlencoded({ extended: true }));
