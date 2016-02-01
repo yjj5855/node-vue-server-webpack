@@ -1,5 +1,5 @@
 'use strict';
-
+//没有用 这个文件
 module.exports = function(component,Vue,fs,data){
     var tpl;
     if(fs){

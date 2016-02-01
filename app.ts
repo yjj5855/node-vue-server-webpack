@@ -10,18 +10,16 @@ var webpackDevMiddleware = require('webpack-dev-middleware')
 var WebpackConfig = require('./webpack.config')
 
 import * as index from "./server/routes/index";
-import * as foo from "./server/routes/foo";
-import * as bar from "./server/routes/bar";
 import * as qa from "./server/routes/qa";
 
 var app = express();
 
-//app.use(webpackDevMiddleware(webpack(WebpackConfig), {
-//    publicPath: '/__build__/',
-//    stats: {
-//        colors: true
-//    }
-//}));
+app.use(webpackDevMiddleware(webpack(WebpackConfig), {
+    publicPath: '/__build__/',
+    stats: {
+        colors: true
+    }
+}));
 
 // Configuration
 
@@ -41,8 +39,6 @@ if (env === 'development') {
 // Routes
 
 app.get('/', index.index);
-app.get('/foo', foo.index);
-app.get('/bar', bar.index);
 app.get('/qa/:id', qa.index);
 
 
