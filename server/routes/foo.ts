@@ -7,10 +7,12 @@ var Vue = new vueServer.renderer();
 
 export function index(req: express.Request, res: express.Response) {
 
-    var tpl = fs.readFileSync(__dirname+'/../template/index.html','utf-8');
+    //var tpl = fs.readFileSync(__dirname+'/../template/index.html','utf-8');
 
     var vm = new Vue({
-        template: tpl
+        template: `
+        <p>This is bar!</p>
+        `
     });
 
     vm.$on('vueServer.htmlReady', function(html:string) {

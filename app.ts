@@ -12,15 +12,16 @@ var WebpackConfig = require('./webpack.config')
 import * as index from "./server/routes/index";
 import * as foo from "./server/routes/foo";
 import * as bar from "./server/routes/bar";
+import * as qa from "./server/routes/qa";
 
 var app = express();
 
-app.use(webpackDevMiddleware(webpack(WebpackConfig), {
-    publicPath: '/__build__/',
-    stats: {
-        colors: true
-    }
-}));
+//app.use(webpackDevMiddleware(webpack(WebpackConfig), {
+//    publicPath: '/__build__/',
+//    stats: {
+//        colors: true
+//    }
+//}));
 
 // Configuration
 
@@ -30,7 +31,7 @@ app.set('view options', { layout: false });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname));
 
 var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
@@ -42,6 +43,7 @@ if (env === 'development') {
 app.get('/', index.index);
 app.get('/foo', foo.index);
 app.get('/bar', bar.index);
+app.get('/qa/:id', qa.index);
 
 
 app.listen(3000, function(){
