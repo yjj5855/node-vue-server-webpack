@@ -2,7 +2,7 @@
 import Vue from '../lib/vue.min'
 
 let Index = Vue.extend({
-    replace : false,
+    //replace : false, //必须注释掉 不然动画失效
     template : `
     <div>
         <!-- 标题栏 -->
@@ -28,7 +28,7 @@ let Index = Vue.extend({
     `,
     data : ()=>{
         return {
-            title : '菜单首页',
+            title : '菜谱首页',
             cookbookClasses : []
         }
     },
@@ -50,6 +50,7 @@ let Index = Vue.extend({
                 resource.get({id: qa_id}).then((response)=>{
                     if(response.status == 200){
                         this.$data = {
+                            title : '菜谱首页',
                             cookbookClasses : response.data.tngou
                         }
                         transition.next();
@@ -57,16 +58,16 @@ let Index = Vue.extend({
                 });
             }
         }
-        ,
-        canActivate: function(){
-
-        },
-        activate: function (transition) {
-            transition.next()
-        },
-        deactivate: function (transition) {
-            transition.next()
-        }
+        //,
+        //canActivate: function(){
+        //
+        //},
+        //activate: function (transition) {
+        //    transition.next()
+        //},
+        //deactivate: function (transition) {
+        //    transition.next()
+        //}
     }
 })
 

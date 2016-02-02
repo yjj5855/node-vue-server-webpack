@@ -2,13 +2,13 @@
 import Vue from '../lib/vue.min'
 
 let Index = Vue.extend({
-    replace : false,
+    //replace : false, //必须注释掉 不然动画失效
     template : `
     <div>
         <!-- 标题栏 -->
         <header class="bar bar-nav">
             <a class="icon icon-left pull-left open-panel" @click="goBack()"></a>
-            <h1 class="title">客户端标题</h1>
+            <h1 class="title">{{title}}</h1>
         </header>
 
         <!-- 这里是页面内容区 -->
@@ -37,6 +37,7 @@ let Index = Vue.extend({
     `,
     data : ()=>{
         return {
+            title : '菜谱列表',
             cookbookItems : [],
         }
     },
@@ -58,15 +59,14 @@ let Index = Vue.extend({
                 resource.get({id: qa_id}).then((response)=>{
                     if(response.status == 200){
                         this.$data = {
-                            cookbookItems : response.data.tngou,
-                            id  : qa_id
+                            title : '菜谱列表',
+                            cookbookItems : response.data.tngou
                         }
                         transition.next();
                     }
                 });
             }
-        }
-        ,
+        },
         canActivate: function(){
 
         },

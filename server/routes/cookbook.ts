@@ -10,7 +10,7 @@ var Vue = new vueServer.renderer();
 
 export function index(req: express.Request, res: express.Response) {
 
-    let qa_id:number = req.params.id;
+    let cookbook_id:number = req.params.id;
 
     let vm:vueServer,
         b:Object,
@@ -19,7 +19,7 @@ export function index(req: express.Request, res: express.Response) {
     options = {
         method: 'GET',
         url: 'http://apis.baidu.com/tngou/cook/list?'+queryString.stringify({
-            id : qa_id,
+            id : cookbook_id,
             page : 1,
             rows : 20
         }),
@@ -29,7 +29,7 @@ export function index(req: express.Request, res: express.Response) {
         }
     };
     request(options,function(err,resp,body){
-
+        //这个接口 没有返回这个ID的title
         if (!err && resp.statusCode == 200) {
             b = JSON.parse(body);
             vm = new Vue({
@@ -39,7 +39,7 @@ export function index(req: express.Request, res: express.Response) {
                     <!-- 标题栏 -->
                     <header class="bar bar-nav">
                         <a class="icon icon-left pull-left open-panel"></a>
-                        <h1 class="title">服务端标题</h1>
+                        <h1 class="title">{{title}}</h1>
                     </header>
 
                     <!-- 这里是页面内容区 -->
@@ -67,8 +67,9 @@ export function index(req: express.Request, res: express.Response) {
                 </div>
                 `,
                 data : {
+                    title : '菜谱列表',
                     cookbookItems: b.tngou,
-                    id  : qa_id
+                    id  : cookbook_id
                 }
             });
         }
@@ -77,9 +78,9 @@ export function index(req: express.Request, res: express.Response) {
                 server_html:html,
                 server_data:`
                     window.cm_cookbookItems = {
-                        title : '服务端标题',
+                        title : '菜谱列表',
                         cookbookItems: ${JSON.stringify(b.tngou)},
-                        id  : ${qa_id}
+                        id  : ${cookbook_id}
                     }`
             })
         });

@@ -4,6 +4,18 @@
     <meta charset="utf-8">
     <title>Vue Router Example</title>
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <style type="text/css">
+
+        .test-transition {
+            transition: all .5s ease;
+        }
+
+        .test-enter, .test-leave {
+            opacity: 0;
+            transform: translate3d(10px, 0, 0);
+        }
+
+    </style>
     <script>
         <%-server_data%>
     </script>
@@ -11,7 +23,7 @@
 <body id="app">
 <div class="page-group">
     <div class="page page-current">
-        <router-view><%-server_html%></router-view>
+        <router-view transition="test" transition-mode="out-in"><%-server_html%></router-view>
     </div>
 </div>
 

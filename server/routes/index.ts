@@ -54,7 +54,7 @@ export function index(req: express.Request, res: express.Response) {
                 </div>
                 `,
                 data : {
-                    title : '菜单首页',
+                    title : '菜谱首页',
                     cookbookClasses: b.tngou,
                 }
             });
@@ -64,7 +64,7 @@ export function index(req: express.Request, res: express.Response) {
                 server_html:html,
                 server_data:`
                     window.cm_cookbookClasses = {
-                        title : '菜单首页',
+                        title : '菜谱首页',
                         cookbookClasses: ${JSON.stringify(b.tngou)}
                     }`
             })
