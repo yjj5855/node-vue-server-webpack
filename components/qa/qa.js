@@ -9,14 +9,15 @@ module.exports = function(Vue,fs,data){
     }
 
     var Qa = Vue.component('cm-qa',{
-        props : ['qa_title','qa_content'],
+        props : ['qa_title','qa_content','qa_id'],
         template : tpl,
         data : function(){
             return {
+                id : this.qa_id,
                 title : this.qa_title,
                 content : this.qa_content
             }
-        }
+        },
     });
 
     return Qa;
