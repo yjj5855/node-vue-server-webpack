@@ -47,13 +47,17 @@ let Index = Vue.extend({
                 let qa_id = 0;
 
                 var resource = this.$resource('http://apis.baidu.com/tngou/cook/classify');
+                $.showPreloader();
                 resource.get({id: qa_id}).then((response)=>{
+                    $.hidePreloader();
                     if(response.status == 200){
                         this.$data = {
                             title : '菜谱首页',
                             cookbookClasses : response.data.tngou
                         }
                         transition.next();
+                    }else{
+                        transition.abort();
                     }
                 });
             }

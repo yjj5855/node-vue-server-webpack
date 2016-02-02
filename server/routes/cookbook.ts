@@ -43,7 +43,7 @@ export function index(req: express.Request, res: express.Response) {
                     </header>
 
                     <!-- 这里是页面内容区 -->
-                    <div class="content">
+                    <div class="content infinite-scroll infinite-scroll-bottom">
                       <div class="card" v-for="item in cookbookItems">
                         <div class="card-content">
                           <div class="list-block media-list">
@@ -63,6 +63,10 @@ export function index(req: express.Request, res: express.Response) {
                           </div>
                         </div>
                       </div>
+                      <!-- 加载提示符 -->
+                      <div class="infinite-scroll-preloader">
+                          <div class="preloader"></div>
+                      </div>
                     </div>
                 </div>
                 `,
@@ -78,9 +82,10 @@ export function index(req: express.Request, res: express.Response) {
                 server_html:html,
                 server_data:`
                     window.cm_cookbookItems = {
-                        title : '菜谱列表',
+                        title : '菜单列表',
                         cookbookItems: ${JSON.stringify(b.tngou)},
-                        id  : ${cookbook_id}
+                        id  : ${cookbook_id},
+                        page : 2,
                     }`
             })
         });
