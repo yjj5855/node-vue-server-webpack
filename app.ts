@@ -11,6 +11,7 @@ var WebpackConfig = require('./webpack.config')
 
 import * as index from "./server/routes/index";
 import * as cookbook from "./server/routes/cookbook";
+import * as cookbookDetail from './server/routes/cookbookDetail'
 
 var app = express();
 
@@ -40,6 +41,7 @@ if (env === 'development') {
 
 app.get('/cookbook', index.index);
 app.get('/cookbook/:id', cookbook.index);
+app.get('/cookbookDetail/:id', cookbookDetail.index);
 
 app.listen(3000, function(){
     console.log("Demo Express server listening on port %d in %s mode", 3000, app.settings.env);

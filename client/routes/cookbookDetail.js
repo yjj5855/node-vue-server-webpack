@@ -7,54 +7,50 @@ let Index = Vue.extend({
     <div>
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-            <a class="icon icon-me pull-left open-panel"></a>
-            <h1 class="title">{{title}}</h1>
+            <a class="icon icon-left pull-left open-panel" @click="goBack()"></a>
+            <h1 class="title">{{cookbookDetail.name}}</h1>
         </header>
-    
+
         <!-- 这里是页面内容区 -->
         <div class="content">
-          <div class="list-block">
-            <ul>
-              <li class="item-content" v-for="item in cookbookClasses" @click="goCookbook(item.id)">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner">
-                  <div class="item-title">{{item.title}}</div>
-                </div>
-              </li>
-            </ul>
+          <div class="content-padded">
+            <p style="text-align: center;"><img src="http://tnfs.tngou.net/img{{cookbookDetail.img}}"></p>
+            {{{cookbookDetail.message}}}
           </div>
         </div>
     </div>
     `,
+    ready : function(){
+        
+    },
     data : ()=>{
         return {
-            title : '菜谱首页',
-            cookbookClasses : []
+            cookbookDetail : {}
         }
     },
     methods: {
-        goCookbook(id){
-            this.$router.go('/cookbook/'+id);
+        goBack(){
+            window.history.back();
         }
     },
     route : {
-        data : function(transition) {
+        data : function(transition){
             //如果是服务端渲染的,应该设置全局变量,那么客户端就不用异步请求数据了
-            if(window.cm_cookbookClasses){
-                this.$data = window.cm_cookbookClasses;
+            if(window.cm_cookbookDetail && window.cm_cookbookDetail.id == transition.to.params.id){
+                this.$data = {
+                    cookbookDetail:window.cm_cookbookDetail
+                };
                 transition.next();
             }else{
-                let qa_id = 0;
-
-                var resource = this.$resource('http://apis.baidu.com/tngou/cook/classify');
+                let qa_id = transition.to.params.id;
                 $.showPreloader();
+                let resource = this.$resource('http://apis.baidu.com/tngou/cook/show');
                 resource.get({id: qa_id}).then((response)=>{
                     $.hidePreloader();
                     if(response.status == 200){
                         this.$data = {
-                            title : '菜谱首页',
-                            cookbookClasses : response.data.tngou
-                        }
+                            cookbookDetail : response.data
+                        };
                         transition.next();
                     }else{
                         transition.abort();
@@ -66,11 +62,9 @@ let Index = Vue.extend({
 
         },
         activate: function (transition) {
-            this.$data = window.cm_cookbookClasses;
             transition.next()
         },
         deactivate: function (transition) {
-            window.cm_cookbookClasses = this.$data;
             transition.next()
         }
     }

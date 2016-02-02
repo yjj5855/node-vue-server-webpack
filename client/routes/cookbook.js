@@ -13,7 +13,7 @@ let Index = Vue.extend({
 
         <!-- 这里是页面内容区 -->
         <div class="content infinite-scroll infinite-scroll-bottom" id="cookbook_{{id}}">
-          <div class="card" v-for="item in cookbookItems">
+          <div class="card" v-for="item in cookbookItems" @click="goCookbookDetail(item.id)">
             <div class="card-content">
               <div class="list-block media-list">
                 <ul>
@@ -32,10 +32,10 @@ let Index = Vue.extend({
               </div>
             </div>
           </div>
-              <!-- 加载提示符 -->
-              <div class="infinite-scroll-preloader">
-                  <div class="preloader"></div>
-              </div>
+          <!-- 加载提示符 -->
+          <div class="infinite-scroll-preloader">
+              <div class="preloader"></div>
+          </div>
         </div>
     </div>
     `,
@@ -81,6 +81,9 @@ let Index = Vue.extend({
         }
     },
     methods: {
+        goCookbookDetail(id){
+            this.$router.go('/cookbookDetail/'+id);
+        },
         goBack(){
             this.$router.go('/cookbook');
         },
@@ -128,9 +131,11 @@ let Index = Vue.extend({
 
         },
         activate: function (transition) {
+            this.$data = window.cm_cookbookItems;
             transition.next()
         },
         deactivate: function (transition) {
+            window.cm_cookbookItems = this.$data;
             transition.next()
         }
     }
