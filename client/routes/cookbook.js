@@ -45,19 +45,21 @@ let Index = Vue.extend({
         let maxItems = 0;
 
         $('.infinite-scroll-bottom').on('infinite',()=>{
-        //$('#cookbook_'+this.id).on('infinite',()=>{
             if(loading){ return; }
             loading = true;
 
             this.loadCookbook(this.id,this.page).then((data)=>{
                 this.page += 1;
                 for(let i=0;i<=data.tngou.length;i++){
-                    this.cookbookItems.push(data.tngou[i])
+                    if(data.tngou[i]){
+                        this.cookbookItems.push(data.tngou[i])
+                    }
                 }
                 maxItems = data.total;
 
                 loading = false;
                 if(this.cookbookItems.length >= maxItems){
+                    //解绑无限加载事件
                     $.detachInfiniteScroll($('.infinite-scroll'));
                     // 删除加载提示符
                     $('.infinite-scroll-preloader').remove();
