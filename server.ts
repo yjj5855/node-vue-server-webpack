@@ -4,6 +4,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
+import {config} from './env'
 
 var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
@@ -15,13 +16,6 @@ import * as cookbookDetail from './server/routes/cookbookDetail'
 
 var app = express();
 
-app.use(webpackDevMiddleware(webpack(WebpackConfig), {
-    publicPath: '/__build__/',
-    stats: {
-        colors: true
-    }
-}));
-
 // Configuration
 
 app.set('views', __dirname + '/server/views');
@@ -32,9 +26,15 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(express.static(__dirname));
 
-var env = process.env.NODE_ENV || 'development';
+var env = config.NODE_ENV || 'development';
 if (env === 'development') {
     app.use(errorHandler());
+    app.use(webpackDevMiddleware(webpack(WebpackConfig), {
+        publicPath: '/__build__/',
+        stats: {
+            colors: true
+        }
+    }));
 }
 
 // Routes

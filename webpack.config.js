@@ -5,7 +5,7 @@ var webpack = require('webpack')
 
 module.exports = {
 
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
 
   entry: {
     app: "./client/app"
@@ -24,6 +24,13 @@ module.exports = {
       { test: /\.html$/, loader: 'raw' },
       { test: /\.css$/, loader: 'style!css' }
     ]
-  }
+  },
 
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    })
+  ]
 }
