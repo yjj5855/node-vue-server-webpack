@@ -5,7 +5,7 @@ import VueResource from './lib/vue-resource.min'
 
 //懒加载路由 只有访问这个路由才会加载js
 import Index from 'bundle?lazy!./routes/index'
-import Cookbook from 'bundle?lazy!./routes/Cookbook'
+import Cookbook from 'bundle?lazy!./routes/cookbook'
 import CookbookDetail from 'bundle?lazy!./routes/cookbookDetail'
 
 
@@ -29,7 +29,7 @@ router.map({
     },
     '/cookbookDetail/:id': {
         component: CookbookDetail
-    },
+    }
 })
 router.redirect({
     '*': '/cookbook'
