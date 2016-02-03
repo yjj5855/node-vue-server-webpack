@@ -6,6 +6,8 @@
 
 这只是一个快速开发框架.
 
+### <a href="http://182.92.99.230:3000/cookbook">一个简单的demo</a>
+
 ### 注意 vue-server 有一些小BUG,前后端目前还不能用同一个组件,已经提过Issues了,之后会修复这个BUG.
 
 ### 1.安装
@@ -18,4 +20,4 @@
 
 ### 3.启动服务
 
-    node app.js
+    node server
