@@ -4,22 +4,17 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
+import {config} from './env'
 
 var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 var WebpackConfig = require('./webpack.config')
 
 import * as index from "./server/routes/index";
-import * as qa from "./server/routes/qa";
+import * as cookbook from "./server/routes/cookbook";
+import * as cookbookDetail from './server/routes/cookbookDetail'
 
 var app = express();
-
-app.use(webpackDevMiddleware(webpack(WebpackConfig), {
-    publicPath: '/__build__/',
-    stats: {
-        colors: true
-    }
-}));
 
 // Configuration
 
@@ -31,16 +26,22 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(express.static(__dirname));
 
-var env = process.env.NODE_ENV || 'development';
+var env = config.NODE_ENV || 'development';
 if (env === 'development') {
     app.use(errorHandler());
+    app.use(webpackDevMiddleware(webpack(WebpackConfig), {
+        publicPath: '/__build__/',
+        stats: {
+            colors: true
+        }
+    }));
 }
 
 // Routes
 
-app.get('/', index.index);
-app.get('/qa/:id', qa.index);
-
+app.get('/cookbook', index.index);
+app.get('/cookbook/:id', cookbook.index);
+app.get('/cookbookDetail/:id', cookbookDetail.index);
 
 app.listen(3000, function(){
     console.log("Demo Express server listening on port %d in %s mode", 3000, app.settings.env);

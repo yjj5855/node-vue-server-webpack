@@ -2,28 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!--<link rel="stylesheet" type="text/css" href="http://m.chezhil.com/app5.0/css/app/hot.css?v=0049">-->
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
     <title>Vue Router Example</title>
-    <style>
-        .v-link-active {
-            color: red;
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <style type="text/css">
+
+        /*.test-transition {*/
+            /*transition: all .5s ease;*/
+        /*}*/
+
+        /*.test-enter, .test-leave {*/
+            /*opacity: 0;*/
+            /*transform: translate3d(10px, 0, 0);*/
+        /*}*/
+        h2{
+            font-size: 1rem;
+        }
+        p{
+            font-size: .8rem;
+        }
+        img{
+            max-width: 100%;
         }
     </style>
     <script>
         <%-server_data%>
     </script>
 </head>
-<body>
-
-<div id="app">
-    <!--<h1>Hello App!</h1>-->
-    <p>
-        <a v-link="{ path: '/' }">Go to Index</a>
-        <a v-link="{ path: '/qa/1' }">Go to Qa</a>
-    </p>
-
-    <router-view><%-server_html%></router-view>
+<body id="app">
+<div class="page-group">
+    <div class="page page-current">
+        <router-view transition="test" transition-mode="out-in"><%-server_html%></router-view>
+    </div>
 </div>
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js,sm-extend.min.js' charset='utf-8'></script>
 <script src="/__build__/app.js"></script>
 </body>
 </html>

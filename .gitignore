@@ -6,8 +6,8 @@ typings
 .DS_Store
 Thumbs.db
 env.js
-app.js
-app.js.map
+server.js
+server.js.map
 
 server/routes/*.js
 server/routes/*.js.map

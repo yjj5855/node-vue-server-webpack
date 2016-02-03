@@ -10,14 +10,16 @@ var Vue = new vueServer.renderer();
 
 export function index(req: express.Request, res: express.Response) {
 
+    let cookbook_id:number = req.params.id;
+
     let vm:vueServer,
         b:Object,
         options:Object;
 
     options = {
         method: 'GET',
-        url: 'http://apis.baidu.com/tngou/cook/classify?'+queryString.stringify({
-            id : 0,
+        url: 'http://apis.baidu.com/tngou/cook/show?'+queryString.stringify({
+            id : cookbook_id,
         }),
         headers: {
             //百度API的开放接口凭证
@@ -25,7 +27,7 @@ export function index(req: express.Request, res: express.Response) {
         }
     };
     request(options,function(err,resp,body){
-
+        //这个接口 没有返回这个ID的title
         if (!err && resp.statusCode == 200) {
             b = JSON.parse(body);
             vm = new Vue({
@@ -34,28 +36,20 @@ export function index(req: express.Request, res: express.Response) {
                 <div>
                     <!-- 标题栏 -->
                     <header class="bar bar-nav">
-                        <a class="icon icon-me pull-left open-panel"></a>
-                        <h1 class="title">{{title}}</h1>
+                        <a class="icon icon-left pull-left open-panel"></a>
+                        <h1 class="title">{{cookbookDetail.name}}</h1>
                     </header>
 
                     <!-- 这里是页面内容区 -->
                     <div class="content">
-                      <div class="list-block">
-                        <ul>
-                          <li class="item-content" v-for="item in cookbookClasses">
-                            <div class="item-media"><i class="icon icon-f7"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">{{item.title}}</div>
-                            </div>
-                          </li>
-                        </ul>
+                      <div class="content-padded">
+                        {{{cookbookDetail.message}}}
                       </div>
                     </div>
                 </div>
                 `,
                 data : {
-                    title : '菜谱首页',
-                    cookbookClasses: b.tngou,
+                    cookbookDetail : b
                 }
             });
         }
@@ -63,13 +57,12 @@ export function index(req: express.Request, res: express.Response) {
             res.render('layout',{
                 server_html:html,
                 server_data:`
-                    window.cm_cookbookClasses = {
-                        title : '菜谱首页',
-                        cookbookClasses: ${JSON.stringify(b.tngou)}
-                    }`
+                    window.cm_cookbookDetail = ${JSON.stringify(b)}`
             })
         });
 
     });
+
+
 
 };

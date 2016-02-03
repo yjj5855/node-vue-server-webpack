@@ -1,9 +1,12 @@
-<div>{{ qa_title }} / {{title}}
-<ul>
-    <li v-for="item in qa_content">
+<div>{{ qa_title }} - {{ qa_id }}
+<div>
+    <a v-for="item in qa_content" v-link="{ path: '/cookbookDetail/'+item.id }">
         <p>
-            {{item.id}} :
+            名称 : {{item.name}}
         </p>
-    </li>
-</ul>
+        <p>
+            食材 : {{item.food}}
+        </p>
+    </a>
+</div>
 </div>
