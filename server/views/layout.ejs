@@ -29,6 +29,10 @@
             overflow-x: auto;
             z-index: 99999;
         }
+        /*安卓版微信浏览器 不兼容flex布局*/
+        .buttons-tab .button{
+            display: inline;
+        }
         div::-webkit-scrollbar{
             width: 0;
             height: 0;
@@ -39,6 +43,7 @@
         .content.pull-to-refresh-content{
             position: relative;
         }
+
     </style>
     <script>
         <%-server_data%>
