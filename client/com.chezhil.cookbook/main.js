@@ -21,9 +21,16 @@ var router = new VueRouter({
 
 //定义路由
 router.map({
-    '/cookbook'   : {
-        component: Index
-    },
+    //'/cookbook'   : {
+    //    component: Index,
+    //    subRoutes:{
+    //        '/:id': {
+    //            // 当匹配到/foo/bar时，会在Foo's <router-view>内渲染
+    //            // 一个Bar组件
+    //            component: Cookbook
+    //        }
+    //    }
+    //},
     '/cookbook/:id': {
         component: Cookbook
     },
@@ -32,7 +39,7 @@ router.map({
     }
 })
 router.redirect({
-    '*': '/cookbook'
+    '*': '/cookbook/1'
 })
 
 var App = Vue.extend({})

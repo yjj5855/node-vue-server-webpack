@@ -24,6 +24,21 @@
         img{
             max-width: 100%;
         }
+        .buttons-tab{
+            width: 100%;
+            overflow-x: auto;
+            z-index: 99999;
+        }
+        div::-webkit-scrollbar{
+            width: 0;
+            height: 0;
+        }
+        .buttons-tab>a{
+            background: #fff;
+        }
+        .content.pull-to-refresh-content{
+            position: relative;
+        }
     </style>
     <script>
         <%-server_data%>

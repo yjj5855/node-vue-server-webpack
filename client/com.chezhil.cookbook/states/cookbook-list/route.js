@@ -8,6 +8,7 @@ let Index = Vue.extend({
     ready : function(){
         let loading = false;
 
+        $('.buttons-tab.fixed-tab').attr('data-offset',$('header.bar.bar-nav')[0].offsetHeight-1)
         $('.infinite-scroll-bottom').on('infinite',()=>{
             if(loading){ return; }
             loading = true;
@@ -28,6 +29,28 @@ let Index = Vue.extend({
                 console.error('出错啦');
             })
         });
+
+        $('.pull-to-refresh-content').on('refresh',()=>{
+            console.log()
+            if(loading){ return; }
+            loading = true;
+
+            this.page = 1;
+            this.loadCookbook(this.id,this.page).then((data)=>{
+                this.page += 1;
+                this.cookbookItems = data.tngou
+                if(this.maxItems > 0){
+                    this.maxItems = data.total;
+                }
+                loading = false;
+                // 加载完毕需要重置
+                $.pullToRefreshDone('.pull-to-refresh-content');
+            }).catch(()=>{
+                console.error('出错啦');
+                //加载完毕需要重置
+                $.pullToRefreshDone('.pull-to-refresh-content');
+            })
+        });
         $.init(); //需要初始化一下,不然监听不到infinite事件
         if(!this.isShowLoad){
             //解绑无限加载事件
@@ -38,6 +61,7 @@ let Index = Vue.extend({
     },
     data : ()=>{
         return {
+            cookbookClasses : [],
             id : 0,
             page : 1,
             title : '菜谱列表',
@@ -46,6 +70,9 @@ let Index = Vue.extend({
         }
     },
     methods: {
+        goCookbook(id){
+            this.$router.go('/cookbook/'+id);
+        },
         goCookbookDetail(id){
             this.$router.go('/cookbookDetail/'+id);
         },
@@ -64,12 +91,34 @@ let Index = Vue.extend({
                 });
             })
 
+        },
+        scrollTabBtn(class_id){
+            let el = $('.tab-link.button.class_'+class_id)[0];
+            let scrollLeft = el.offsetLeft - el.parentNode.offsetLeft;
+
+            let scrollLeft_active = $('.buttons-tab.fixed-tab')?$('.buttons-tab.fixed-tab').scrollLeft():0;
+
+            if(scrollLeft_active - scrollLeft < 0){
+                for(let i=0;i<50;i++){
+                    (function(){
+                        setTimeout(()=>{
+                            $('.buttons-tab.fixed-tab').scrollLeft(Math.abs(scrollLeft_active+(scrollLeft-scrollLeft_active)/50*i)-i);
+                        },5*i)
+                    })()
+                }
+            }else{
+                for(let i=0;i<50;i++){
+                    (function(){
+                        setTimeout(()=>{
+                            $('.buttons-tab.fixed-tab').scrollLeft(scrollLeft-(scrollLeft_active-scrollLeft)/50*i-i);
+                        },5*i)
+                    })()
+                }
+            }
         }
     },
     computed : {
         isShowLoad : function(){
-            console.log(this.maxItems);
-            console.log(this.cookbookItems.length);
             return this.maxItems > this.cookbookItems.length;
         }
     },
@@ -86,13 +135,13 @@ let Index = Vue.extend({
                 resource.get({id: qa_id,page:1}).then((response)=>{
                     $.hidePreloader();
                     if(response.status == 200){
-                        this.$data = {
-                            id : qa_id,
-                            page : 2,
-                            title : '菜谱列表',
-                            cookbookItems : response.data.tngou,
-                            maxItems : response.data.total
-                        };
+                        this.$data.id = qa_id,
+                        this.$data.page = 2,
+                        this.$data.title ='菜谱列表';
+                        this.$data.cookbookItems = response.data.tngou;
+                        this.$data.maxItems = response.data.total;
+
+                        this.scrollTabBtn(qa_id);
                         transition.next();
                     }else{
                         transition.abort();
