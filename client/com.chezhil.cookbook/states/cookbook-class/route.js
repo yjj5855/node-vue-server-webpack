@@ -1,31 +1,10 @@
 'use strict';
-import Vue from '../lib/vue.min'
+import Vue from 'vue'
+import Tpl from './template.html'
 
 let Index = Vue.extend({
     //replace : false, //必须注释掉 不然动画失效
-    template : `
-    <div>
-        <!-- 标题栏 -->
-        <header class="bar bar-nav">
-            <a class="icon icon-me pull-left open-panel"></a>
-            <h1 class="title">{{title}}</h1>
-        </header>
-    
-        <!-- 这里是页面内容区 -->
-        <div class="content">
-          <div class="list-block">
-            <ul>
-              <li class="item-content" v-for="item in cookbookClasses" @click="goCookbook(item.id)">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner">
-                  <div class="item-title">{{item.title}}</div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-    </div>
-    `,
+    template : Tpl,
     data : ()=>{
         return {
             title : '菜谱首页',

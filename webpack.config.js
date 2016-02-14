@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'source-map',
 
   entry: {
-    app: "./client/app"
+    app: "./client/com.chezhil.cookbook/main"
   },
 
   output: {

@@ -1,48 +1,12 @@
 'use strict';
-import Vue from '../lib/vue.min'
+import Vue from 'vue'
+import Tpl from './template.html'
 
 let Index = Vue.extend({
     //replace : false, //必须注释掉 不然动画失效
-    template : `
-    <div>
-        <!-- 标题栏 -->
-        <header class="bar bar-nav">
-            <a class="icon icon-left pull-left open-panel" @click="goBack()"></a>
-            <h1 class="title">{{title}}</h1>
-        </header>
-
-        <!-- 这里是页面内容区 -->
-        <div class="content infinite-scroll infinite-scroll-bottom" id="cookbook_{{id}}">
-          <div class="card" v-for="item in cookbookItems" @click="goCookbookDetail(item.id)">
-            <div class="card-content">
-              <div class="list-block media-list">
-                <ul>
-                  <li class="item-content">
-                    <div class="item-media">
-                      <img src="http://tnfs.tngou.net/img{{item.img}}" width="44">
-                    </div>
-                    <div class="item-inner">
-                      <div class="item-title-row">
-                        <div class="item-title">{{item.name}}</div>
-                      </div>
-                      <div class="item-subtitle">{{item.food}}</div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- 加载提示符 -->
-          <div class="infinite-scroll-preloader">
-              <div class="preloader"></div>
-          </div>
-        </div>
-    </div>
-    `,
+    template : Tpl,
     ready : function(){
         let loading = false;
-        // 最多可加载的条目
-        let maxItems = 0;
 
         $('.infinite-scroll-bottom').on('infinite',()=>{
             if(loading){ return; }
@@ -55,21 +19,22 @@ let Index = Vue.extend({
                         this.cookbookItems.push(data.tngou[i])
                     }
                 }
-                maxItems = data.total;
-
-                loading = false;
-                if(this.cookbookItems.length >= maxItems){
-                    //解绑无限加载事件
-                    $.detachInfiniteScroll($('.infinite-scroll'));
-                    // 删除加载提示符
-                    $('.infinite-scroll-preloader').remove();
-                    return;
+                if(this.maxItems == -1){
+                    this.maxItems = data.total;
                 }
+                loading = false;
+
             }).catch(()=>{
                 console.error('出错啦');
             })
         });
         $.init(); //需要初始化一下,不然监听不到infinite事件
+        if(!this.isShowLoad){
+            //解绑无限加载事件
+            $.detachInfiniteScroll($('.infinite-scroll'));
+            // 删除加载提示符
+            $('.infinite-scroll-preloader').remove();
+        }
     },
     data : ()=>{
         return {
@@ -77,7 +42,7 @@ let Index = Vue.extend({
             page : 1,
             title : '菜谱列表',
             cookbookItems : [],
-            maxItems : 100,
+            maxItems : -1,
         }
     },
     methods: {
@@ -101,6 +66,13 @@ let Index = Vue.extend({
 
         }
     },
+    computed : {
+        isShowLoad : function(){
+            console.log(this.maxItems);
+            console.log(this.cookbookItems.length);
+            return this.maxItems > this.cookbookItems.length;
+        }
+    },
     route : {
         data : function(transition){
             //如果是服务端渲染的,应该设置全局变量,那么客户端就不用异步请求数据了
@@ -118,7 +90,8 @@ let Index = Vue.extend({
                             id : qa_id,
                             page : 2,
                             title : '菜谱列表',
-                            cookbookItems : response.data.tngou
+                            cookbookItems : response.data.tngou,
+                            maxItems : response.data.total
                         };
                         transition.next();
                     }else{

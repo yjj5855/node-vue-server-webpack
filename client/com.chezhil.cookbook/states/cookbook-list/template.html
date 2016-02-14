@@ -1,0 +1,34 @@
+<div>
+    <!-- 标题栏 -->
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left open-panel" @click="goBack()"></a>
+        <h1 class="title">{{title}}</h1>
+    </header>
+
+    <!-- 这里是页面内容区 -->
+    <div class="content infinite-scroll infinite-scroll-bottom" id="cookbook_{{id}}">
+        <div class="card" v-for="item in cookbookItems" @click="goCookbookDetail(item.id)">
+            <div class="card-content">
+                <div class="list-block media-list">
+                    <ul>
+                        <li class="item-content">
+                            <div class="item-media">
+                                <img :src="'http://tnfs.tngou.net/img'+item.img" width="44">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">{{item.name}}</div>
+                                </div>
+                                <div class="item-subtitle">{{item.food}}</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 加载提示符 -->
+        <div class="infinite-scroll-preloader" v-if="isShowLoad">
+            <div class="preloader"></div>
+        </div>
+    </div>
+</div>

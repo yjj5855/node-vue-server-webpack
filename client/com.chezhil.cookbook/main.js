@@ -1,12 +1,12 @@
 ﻿'use strict';
-import Vue from './lib/vue.min'
-import VueRouter from './lib/vue-router.min'
-import VueResource from './lib/vue-resource.min'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 
 //懒加载路由 只有访问这个路由才会加载js
-import Index from 'bundle?lazy!./routes/index'
-import Cookbook from 'bundle?lazy!./routes/cookbook'
-import CookbookDetail from 'bundle?lazy!./routes/cookbookDetail'
+import Index from 'bundle?lazy!./states/cookbook-class/route'
+import Cookbook from 'bundle?lazy!./states/cookbook-list/route'
+import CookbookDetail from 'bundle?lazy!./states/cookbook/route'
 
 
 Vue.use(VueResource)
