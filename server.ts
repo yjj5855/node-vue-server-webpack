@@ -38,9 +38,12 @@ if (env === 'development') {
 }
 
 // Routes
+app.get('/', index.index);
 app.get('/cookbook', index.index);
 app.get('/cookbook/:id', cookbook.index);
 app.get('/cookbookDetail/:id', cookbookDetail.index);
+
+
 
 app.listen(3000, function(){
     console.log("Demo Express server listening on port %d in %s mode", 3000, app.settings.env);
