@@ -1,0 +1,15 @@
+<div>
+    <!-- 标题栏 -->
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left open-panel" @click="goBack()"></a>
+        <h1 class="title">{{cookbookDetail.name}}</h1>
+    </header>
+
+    <!-- 这里是页面内容区 -->
+    <div class="content">
+        <div class="content-padded">
+            <p style="text-align: center;"><img v-if="cookbookDetail.img!=''" :src="'http://tnfs.tngou.net/img'+cookbookDetail.img"></p>
+            {{{cookbookDetail.message}}}
+        </div>
+    </div>
+</div>
