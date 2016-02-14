@@ -1,31 +1,18 @@
 'use strict';
-import Vue from '../lib/vue.min'
+import Vue from 'vue'
+import Tpl from './template.html'
 
 let Index = Vue.extend({
     //replace : false, //必须注释掉 不然动画失效
-    template : `
-    <div>
-        <!-- 标题栏 -->
-        <header class="bar bar-nav">
-            <a class="icon icon-left pull-left open-panel" @click="goBack()"></a>
-            <h1 class="title">{{cookbookDetail.name}}</h1>
-        </header>
-
-        <!-- 这里是页面内容区 -->
-        <div class="content">
-          <div class="content-padded">
-            <p style="text-align: center;"><img src="http://tnfs.tngou.net/img{{cookbookDetail.img}}"></p>
-            {{{cookbookDetail.message}}}
-          </div>
-        </div>
-    </div>
-    `,
+    template : Tpl,
     ready : function(){
         
     },
     data : ()=>{
         return {
-            cookbookDetail : {}
+            cookbookDetail : {
+                img : '',
+            }
         }
     },
     methods: {
@@ -62,9 +49,11 @@ let Index = Vue.extend({
 
         },
         activate: function (transition) {
+            this.$data.cookbookDetail = window.cm_cookbookDetail;
             transition.next()
         },
         deactivate: function (transition) {
+            window.cm_cookbookDetail = this.$data.cookbookDetail
             transition.next()
         }
     }

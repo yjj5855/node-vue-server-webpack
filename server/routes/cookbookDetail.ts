@@ -4,7 +4,7 @@ import vueServer = require("vue-server")
 import fs = require('fs')
 import request = require('request'); //第3方http请求的插件
 import queryString = require('querystring'); //转换get参数的插件
-
+import {config} from '../../env'
 
 var Vue = new vueServer.renderer();
 
@@ -30,24 +30,10 @@ export function index(req: express.Request, res: express.Response) {
         //这个接口 没有返回这个ID的title
         if (!err && resp.statusCode == 200) {
             b = JSON.parse(body);
+            console.log(b.img);
             vm = new Vue({
                 replace : false,
-                template : `
-                <div>
-                    <!-- 标题栏 -->
-                    <header class="bar bar-nav">
-                        <a class="icon icon-left pull-left open-panel"></a>
-                        <h1 class="title">{{cookbookDetail.name}}</h1>
-                    </header>
-
-                    <!-- 这里是页面内容区 -->
-                    <div class="content">
-                      <div class="content-padded">
-                        {{{cookbookDetail.message}}}
-                      </div>
-                    </div>
-                </div>
-                `,
+                template : fs.readFileSync(config.PATH_COOKBOOK+'/states/cookbook/template.html','utf-8'),
                 data : {
                     cookbookDetail : b
                 }

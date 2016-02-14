@@ -38,7 +38,6 @@ if (env === 'development') {
 }
 
 // Routes
-
 app.get('/cookbook', index.index);
 app.get('/cookbook/:id', cookbook.index);
 app.get('/cookbookDetail/:id', cookbookDetail.index);
