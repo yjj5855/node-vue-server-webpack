@@ -8,12 +8,16 @@
     <style type="text/css">
 
         /*.test-transition {*/
-            /*transition: all .5s ease;*/
+            /*transition: all .1s ease;*/
         /*}*/
 
-        /*.test-enter, .test-leave {*/
+        /*.test-enter {*/
             /*opacity: 0;*/
             /*transform: translate3d(10px, 0, 0);*/
+        /*}*/
+        /*.test-leave {*/
+            /*opacity: 0;*/
+            /*transform: translate3d(-10px, 0, 0);*/
         /*}*/
         h2{
             font-size: 1rem;
@@ -40,9 +44,6 @@
         .buttons-tab>a{
             background: #fff;
         }
-        .content.pull-to-refresh-content{
-            position: relative;
-        }
 
     </style>
     <script>
@@ -51,13 +52,19 @@
 </head>
 <body id="app">
 <div class="page-group">
-    <div class="page page-current">
-        <router-view transition="test" transition-mode="out-in"><%-server_html%></router-view>
-    </div>
+
+    <router-view ><%-server_html%></router-view>
+
 </div>
 
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script>
+    <!--SUI配置 关闭路由功能-->
+    $.config = {
+        router : false
+    }
+</script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js,sm-extend.min.js' charset='utf-8'></script>
-<script src="/__build__/app.js"></script>
+<script src="/__build__/app.js?v=0.05"></script>
 </body>
 </html>

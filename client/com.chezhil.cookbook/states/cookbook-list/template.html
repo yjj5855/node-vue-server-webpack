@@ -1,22 +1,23 @@
 <div>
+<div class="page page-current">
     <!-- 标题栏 -->
     <header class="bar bar-nav">
-        <a class="icon icon-left pull-left open-panel" @click="goBack()"></a>
+        <a class="icon icon-menu pull-left open-panel" data-panel='#left_panel'></a>
         <h1 class="title">{{title}}</h1>
     </header>
-    <div class="content infinite-scroll infinite-scroll-bottom " >
 
-        <div class="buttons-tab fixed-tab" data-offset="0">
+    <div class="content infinite-scroll infinite-scroll-bottom pull-to-refresh-content"  data-ptr-distance="70" >
+        <!-- 默认的下拉刷新层 -->
+        <div class="pull-to-refresh-layer">
+            <div class="preloader"></div>
+            <div class="pull-to-refresh-arrow"></div>
+            <div style="position:absolute;bottom:-3px;width:100%;text-align: center;font-size: 12px;">{{updateTime | time-diff}}前更新过</div>
+        </div>
+        <div class="buttons-tab" id="class_tab">
             <a v-for="item in cookbookClasses" @click="goCookbook(item.id)" class="tab-link button class_{{item.id}} {{item.id == id?'active':''}}">{{item.title}}</a>
         </div>
 
-        <div class="content pull-to-refresh-content" data-ptr-distance="44">
-            <!-- 默认的下拉刷新层 -->
-            <div class="pull-to-refresh-layer">
-                <div class="preloader"></div>
-                <div class="pull-to-refresh-arrow"></div>
-                <div style="position:absolute;bottom:-3px;width:100%;text-align: center;font-size: 12px;">1分钟前更新过</div>
-            </div>
+        <div class="">
             <!-- 这里是页面内容区 -->
             <div id="cookbook_{{id}}">
                 <div class="card" v-for="item in cookbookItems" @click="goCookbookDetail(item.id)">
@@ -45,5 +46,75 @@
             </div>
         </div>
     </div>
-
+</div>
+<div class="panel-overlay"></div>
+<div class="panel panel-left panel-reveal theme-dark" id="left_panel">
+    <div class="content">
+        <div class="content-block-title">个人信息</div>
+        <div class="list-block">
+            <ul>
+                <li class="item-content item-link" @click="goRoute('/login')">
+                    <div class="item-media"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" style="width: 2.2rem;border-radius: 50%;"></div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">用户XXX</div>
+                        </div>
+                        <div class="item-subtitle"></div>
+                    </div>
+                </li>
+                <li class="item-content item-link">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">我的问题</div>
+                        <div class="item-after">0</div>
+                    </div>
+                </li>
+                <li class="item-content item-link">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">我的收藏</div>
+                        <div class="item-after">0</div>
+                    </div>
+                </li>
+                <li class="item-content item-link">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">评论列表</div>
+                        <div class="item-after">0</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content-block-title">车辆信息</div>
+        <div class="list-block">
+            <ul>
+                <li class="item-content item-link">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">车型</div>
+                        <div class="item-after">未填写</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+                <li class="item-content item-link">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">通知中心</div>
+                        <div class="item-after"></div>
+                    </div>
+                </li>
+                <li class="item-content item-link">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">系统设置</div>
+                        <div class="item-after"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 </div>

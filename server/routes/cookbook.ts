@@ -6,7 +6,8 @@ import request = require('request'); //第3方http请求的插件
 import queryString = require('querystring'); //转换get参数的插件
 import {config} from '../../env'
 
-var Vue = new vueServer.renderer();
+let Vue = new vueServer.renderer();
+let timeDiff = require('../../client/filter/date.filter')
 
 export function index(req: express.Request, res: express.Response) {
 
@@ -49,6 +50,7 @@ export function index(req: express.Request, res: express.Response) {
             //这个接口 没有返回这个ID的title
             if (!err && resp.statusCode == 200) {
                 b = JSON.parse(body);
+                timeDiff(Vue);
                 vm = new Vue({
                     replace : false,
                     template : fs.readFileSync(config.PATH_COOKBOOK+'/states/cookbook-list/template.html','utf-8'),
@@ -58,7 +60,8 @@ export function index(req: express.Request, res: express.Response) {
                         cookbookItems: b.tngou,
                         id  : cookbook_id,
                         page : 1,
-                        maxItems : b.total
+                        maxItems : b.total,
+                        updateTime : '',
                     }
                 });
             }
@@ -72,7 +75,8 @@ export function index(req: express.Request, res: express.Response) {
                         cookbookItems: ${JSON.stringify(b.tngou)},
                         id  : ${cookbook_id},
                         page : 2,
-                        maxItems : ${b.total}
+                        maxItems : ${b.total},
+                        updateTime : new Date().getTime(),
                     }`
                 })
             });

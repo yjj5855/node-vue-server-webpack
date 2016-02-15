@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     path: __dirname + '/__build__',
-    filename: '[name].[hash:8].js',
+    filename: '[name].js',
     chunkFilename: '[id].[hash:8].js',
     publicPath: '/__build__/'
   },

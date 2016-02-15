@@ -6,13 +6,14 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 import {config} from './env'
 
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var WebpackConfig = require('./webpack.config')
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var WebpackConfig = require('./webpack.config');
 
 import * as index from "./server/routes/index";
 import * as cookbook from "./server/routes/cookbook";
-import * as cookbookDetail from './server/routes/cookbookDetail'
+import * as cookbookDetail from './server/routes/cookbookDetail';
+import * as login from './server/routes/login';
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.get('/cookbook', index.index);
 app.get('/cookbook/:id', cookbook.index);
 app.get('/cookbookDetail/:id', cookbookDetail.index);
 
+app.get('/login', login.index);
 
 
 app.listen(3000, function(){

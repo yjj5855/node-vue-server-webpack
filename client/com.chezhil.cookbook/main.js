@@ -2,15 +2,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import timeDiff from '../filter/date.filter'
 
 //懒加载路由 只有访问这个路由才会加载js
-import Index from 'bundle?lazy!./states/cookbook-class/route'
+//import Index from 'bundle?lazy!./states/cookbook-class/route'
 import Cookbook from 'bundle?lazy!./states/cookbook-list/route'
 import CookbookDetail from 'bundle?lazy!./states/cookbook/route'
+import Login from 'bundle?lazy!./states/login/route'
 
-
+//Vue.config.debug = true;
 Vue.use(VueResource)
 Vue.use(VueRouter)
+
+timeDiff(Vue); //定义过滤器
 
 Vue.http.headers.common['apikey'] = 'a369f43a6392605426433831e10765ec';
 
@@ -21,21 +25,14 @@ var router = new VueRouter({
 
 //定义路由
 router.map({
-    //'/cookbook'   : {
-    //    component: Index,
-    //    subRoutes:{
-    //        '/:id': {
-    //            // 当匹配到/foo/bar时，会在Foo's <router-view>内渲染
-    //            // 一个Bar组件
-    //            component: Cookbook
-    //        }
-    //    }
-    //},
     '/cookbook/:id': {
         component: Cookbook
     },
     '/cookbookDetail/:id': {
         component: CookbookDetail
+    },
+    '/login': {
+        component: Login
     }
 })
 router.redirect({
