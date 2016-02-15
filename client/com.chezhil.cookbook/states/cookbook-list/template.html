@@ -13,8 +13,11 @@
             <div class="pull-to-refresh-arrow"></div>
             <div style="position:absolute;bottom:-3px;width:100%;text-align: center;font-size: 12px;">{{updateTime | time-diff}}前更新过</div>
         </div>
-        <div class="buttons-tab" id="class_tab">
-            <a v-for="item in cookbookClasses" @click="goCookbook(item.id)" class="tab-link button class_{{item.id}} {{item.id == id?'active':''}}">{{item.title}}</a>
+        <div class="buttons-tab" id="class_tab" style="display: block;">
+            <a v-for="item in cookbookClasses" @click="goCookbook(item.id)"
+               class="tab-link button class_{{item.id}} {{item.id == id?'active':''}}"
+               style="padding-bottom: .41rem"
+            >{{item.title}}</a>
         </div>
 
         <div class="">
