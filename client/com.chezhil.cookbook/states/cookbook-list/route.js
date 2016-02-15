@@ -5,6 +5,9 @@ import Tpl from './template.html'
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
     template : Tpl,
+    init : function(){
+        this.firstLoaded = true;
+    },
     ready : function(){ //做浏览器判断 和 兼容
         let loading = false;
 
@@ -112,28 +115,34 @@ let Index = Vue.extend({
 
         },
         scrollTabBtn(class_id){
-            let el = $('.tab-link.button.class_'+class_id)[0];
-            let scrollLeft = el.offsetLeft - el.parentNode.offsetLeft;
-
-            let scrollLeft_active = $('#class_tab')?$('#class_tab').scrollLeft():0;
-
-            if(scrollLeft_active - scrollLeft < 0){
-                for(let i=0;i<50;i++){
-                    (function(){
-                        setTimeout(()=>{
-                            $('#class_tab').scrollLeft(Math.abs(scrollLeft_active+(scrollLeft-scrollLeft_active)/50*i)-i);
-                        },5*i)
-                    })()
+            //setTimeout(()=>{
+                let $el = $('.tab-link.button.class_'+class_id);
+                let el = $el[0];
+                if($el.length == 0 ){
+                    return;
                 }
-            }else{
-                for(let i=0;i<50;i++){
-                    (function(){
-                        setTimeout(()=>{
-                            $('#class_tab').scrollLeft(scrollLeft-(scrollLeft_active-scrollLeft)/50*i-i);
-                        },5*i)
-                    })()
+
+                let scrollLeft = el.offsetLeft - el.parentNode.offsetLeft;
+                let scrollLeft_active = $('#class_tab')?$('#class_tab').scrollLeft():0;
+
+                if(scrollLeft_active - scrollLeft < 0){
+                    for(let i=0;i<50;i++){
+                        (function(){
+                            setTimeout(()=>{
+                                $('#class_tab').scrollLeft(Math.abs(scrollLeft_active+(scrollLeft-scrollLeft_active)/50*i)-i);
+                            },5*i)
+                        })()
+                    }
+                }else{
+                    for(let i=0;i<50;i++){
+                        (function(){
+                            setTimeout(()=>{
+                                $('#class_tab').scrollLeft(scrollLeft-(scrollLeft_active-scrollLeft)/50*i-i);
+                            },5*i)
+                        })()
+                    }
                 }
-            }
+            //})
         }
     },
     computed : {
@@ -143,33 +152,49 @@ let Index = Vue.extend({
     },
     route : {
         data : function(transition){
+            let firstLoaded;
+            this.title = '菜谱列表';
+            if(typeof localStorage.getItem('cookbook_classes') == 'string'){
+                this.cookbookClasses = JSON.parse(localStorage.getItem('cookbook_classes'));
+            }
             //如果是服务端渲染的,应该设置全局变量,那么客户端就不用异步请求数据了
-            if(window.cm_cookbookItems && window.cm_cookbookItems.id == transition.to.params.id){
+            if(window.cm_cookbookItems && window.cm_cookbookItems.id == transition.to.params.id && this.firstLoaded){
                 this.$data = window.cm_cookbookItems;
+                this.firstLoaded = false;
                 transition.next();
             }else if(typeof localStorage.getItem('cookbook_list_'+transition.to.params.id) == 'string'){
                 //本地如果有数据的话拿本地数据
                 let cookbook = JSON.parse(localStorage.getItem('cookbook_list_'+transition.to.params.id));
-                this.$data.id = cookbook.id;
-                this.$data.page = cookbook.page;
-                this.$data.cookbookItems = cookbook.cookbookItems;
-                this.$data.maxItems = cookbook.maxItems;
-                this.$data.updateTime = cookbook.updateTime;
+                this.id = cookbook.id;
+                this.page = cookbook.page;
+                this.cookbookItems = cookbook.cookbookItems;
+                this.maxItems = cookbook.maxItems;
+                this.updateTime = cookbook.updateTime;
 
-                this.scrollTabBtn(this.$data.id);
+                this.scrollTabBtn(this.id);
                 transition.next();
             }else{
+                $.showPreloader();
                 //没有本地数据再去请求数据
                 let qa_id = transition.to.params.id;
-                $.showPreloader();
                 let resource = this.$resource('http://apis.baidu.com/tngou/cook/list');
-                resource.get({id: qa_id,page:1}).then((response)=>{
+                let resourceClass = this.$resource('http://apis.baidu.com/tngou/cook/classify');
+
+                let promise = [
+                    resource.get({id: qa_id,page:1})
+                ];
+                if(typeof localStorage.getItem('cookbook_classes') != 'string'){
+                    promise.push(resourceClass.get({ id: 0 }));
+                }
+
+                Promise.all(promise).then((data)=>{
                     $.hidePreloader();
-                    if(response.status == 200){
-                        this.$data.id = qa_id;
-                        this.$data.page = 2;
-                        this.$data.cookbookItems = response.data.tngou;
-                        this.$data.maxItems = response.data.total;
+                    let data0 = data[0];
+                    if(data0.status == 200){
+                        this.id = qa_id;
+                        this.page = 2;
+                        this.cookbookItems = data0.data.tngou;
+                        this.maxItems = data0.data.total;
 
                         this.scrollTabBtn(qa_id);
 
@@ -177,25 +202,34 @@ let Index = Vue.extend({
                             id : qa_id,
                             updateTime : new Date().getTime(),
                             page : 2,
-                            cookbookItems : response.data.tngou,
-                            maxItems : response.data.total
+                            cookbookItems : data0.data.tngou,
+                            maxItems : data0.data.total
                         }));
-                        transition.next();
+
                     }else{
                         transition.abort();
                     }
-                });
+                    if(data.length > 1){
+                        let data1 = data[1];
+                        this.cookbookClasses = data1.data.tngou;
+                        localStorage.setItem('cookbook_classes',JSON.stringify(data1.data.tngou));
+                    }
+                    transition.next();
+                }).catch(()=>{
+                    $.toast("操作失败");
+                })
+
             }
         },
         canActivate: function(){
 
         },
         activate: function (transition) {
-            this.$data = window.cm_cookbookItems;
+            //this.$data = window.cm_cookbookItems;
             transition.next()
         },
         deactivate: function (transition) {
-            window.cm_cookbookItems = this.$data;
+            //window.cm_cookbookItems = this.$data;
             transition.next()
         }
     }

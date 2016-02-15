@@ -46,9 +46,6 @@
         }
 
     </style>
-    <script>
-        <%-server_data%>
-    </script>
 </head>
 <body id="app">
 <div class="page-group">
@@ -56,7 +53,9 @@
     <router-view ><%-server_html%></router-view>
 
 </div>
-
+<script>
+    <%-server_data%>
+</script>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script>
     <!--SUI配置 关闭路由功能-->
