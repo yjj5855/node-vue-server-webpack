@@ -18,7 +18,17 @@ let Index = Vue.extend({
     },
     methods: {
         goBack(){
-            window.history.back();
+            try{
+                let from = this.$route.router._currentTransition.from
+                if(from.path != 'undefined'){
+                    console.log(from.path);
+                    this.$router.go(from.path);
+                }else{
+                    this.$router.go('cookbook/1');
+                }
+            }catch(e){
+                this.$router.go('cookbook/1');
+            }
         }
     },
     route : {

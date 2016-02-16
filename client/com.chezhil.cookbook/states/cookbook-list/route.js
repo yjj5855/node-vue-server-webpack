@@ -54,7 +54,6 @@ let Index = Vue.extend({
                 $.pullToRefreshDone('.pull-to-refresh-content');
             })
         });
-
         //需要初始化一下,不然监听不到infinite事件
         $.init();
 
@@ -64,6 +63,9 @@ let Index = Vue.extend({
             // 删除加载提示符
             $('.infinite-scroll-preloader').remove();
         }
+        setTimeout(()=>{
+            $.closePanel();
+        })
     },
     data : ()=>{
         return {
@@ -87,8 +89,10 @@ let Index = Vue.extend({
             this.$router.go('/cookbook/1');
         },
         goRoute(route){
-            $('body').removeClass('with-panel-left-reveal');
-            this.$router.go(route);
+            $.closePanel();
+            setTimeout(()=>{
+                this.$router.go(route);
+            },5e2)
         },
         scrollTabBtn(id){
             console.log('动画id=',id);

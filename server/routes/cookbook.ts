@@ -71,7 +71,7 @@ export function index(req: express.Request, res: express.Response) {
                     server_data:`
                     window.cm_cookbookItems = {
                         cookbookClasses : ${JSON.stringify(bb.tngou)},
-                        title : '菜单列表',
+                        title : '菜谱列表',
                         cookbookItems: ${JSON.stringify(b.tngou)},
                         id  : ${cookbook_id},
                         page : 2,
