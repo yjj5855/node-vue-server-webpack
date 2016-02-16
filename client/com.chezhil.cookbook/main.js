@@ -10,7 +10,7 @@ import Cookbook from 'bundle?lazy!./states/cookbook-list/route'
 import CookbookDetail from 'bundle?lazy!./states/cookbook/route'
 import Login from 'bundle?lazy!./states/login/route'
 
-Vue.config.debug = true;
+//Vue.config.debug = true;
 //Vue.config.silent = true;//取消 Vue.js 所有的日志与警告。
 Vue.use(VueResource)
 Vue.use(VueRouter)

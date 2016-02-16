@@ -1,26 +1,23 @@
 'use strict';
 import Vue from 'vue'
 import Tpl from './template.html'
+import Q from 'q'
 import cookbookService from '../../service/cookbook.service'
 
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
     template : Tpl,
-    init : function(){
-        this.firstLoaded = true;
-    },
     ready : function(){ //做浏览器判断 和 兼容
         let loading = false;
-
         //$('#class_tab').attr('data-offset',$('header.bar.bar-nav')[0].offsetHeight-1)
+        //绑定无限滚动事件
         $('.infinite-scroll-bottom').on('infinite',()=>{
             if(loading){ return; }
             loading = true;
 
             cookbookService.getCookbookList(this.id,this.page).then((data)=>{
                 this.page += 1;
-                this.updateTime = new Date().getTime();
                 for(let i=0;i<=data.tngou.length;i++){
                     if(data.tngou[i]){
                         this.cookbookItems.push(data.tngou[i])
@@ -36,6 +33,7 @@ let Index = Vue.extend({
 
         });
 
+        //绑定下拉刷新事件
         $('.pull-to-refresh-content').on('refresh',()=>{
             if(loading){ return; }
             loading = true;
@@ -43,6 +41,7 @@ let Index = Vue.extend({
             this.page = 1;
             cookbookService.getCookbookList(this.id,this.page).then((data)=>{
                 this.page += 1;
+                this.updateTime = new Date().getTime();
                 this.cookbookItems = data.tngou;
                 if(this.maxItems > 0){
                     this.maxItems = data.total;
@@ -57,7 +56,9 @@ let Index = Vue.extend({
             })
         });
 
-        $.init(); //需要初始化一下,不然监听不到infinite事件
+        //需要初始化一下,不然监听不到infinite事件
+        $.init();
+
         if(!this.isShowLoad){
             //解绑无限加载事件
             $.detachInfiniteScroll($('.infinite-scroll'));
@@ -89,9 +90,7 @@ let Index = Vue.extend({
         },
         goRoute(route){
             $('body').removeClass('with-panel-left-reveal');
-            //setTimeout(()=>{
-                this.$router.go(route);
-            //},1e3)
+            this.$router.go(route);
         },
         scrollTabBtn(id){
             console.log('动画id=',id);
@@ -140,8 +139,12 @@ let Index = Vue.extend({
                 console.log('应该只进入一次');
                 this.$data = window.cm_cookbookItems;
                 delete window.cm_cookbookItems;
+                setTimeout(()=>{
+                    this.scrollTabBtn(transition.to.params.id)
+                },3e2);
                 transition.next();
-            }else if(typeof localStorage.getItem('cookbook_list_'+transition.to.params.id) == 'string'){
+            }
+            else if(typeof localStorage.getItem('cookbook_list_'+transition.to.params.id) == 'string'){
                 //本地如果有数据的话拿本地数据
                 let cookbook = JSON.parse(localStorage.getItem('cookbook_list_'+transition.to.params.id));
                 this.id = cookbook.id;
@@ -152,20 +155,20 @@ let Index = Vue.extend({
 
                 this.scrollTabBtn(this.id);
                 transition.next();
-            }else{
+            }
+            else{
                 $.showPreloader();
                 //没有本地数据再去请求数据
                 let qa_id = transition.to.params.id;
-                let resource = this.$resource('http://apis.baidu.com/tngou/cook/list');
-                let resourceClass = this.$resource('http://apis.baidu.com/tngou/cook/classify');
 
                 let promise = [
                     cookbookService.getCookbookList(qa_id,1)
                 ];
                 if(typeof localStorage.getItem('cookbook_classes') != 'string'){
+                    console.log(123);
                     promise.push(cookbookService.getCookbookClass());
                 }
-                console.log('前id=',qa_id,'toID',transition.to.params.id);
+
                 Q.all(promise).then((data)=>{
                     $.hidePreloader();
                     let data0 = data[0];
@@ -174,8 +177,6 @@ let Index = Vue.extend({
                         this.page = 2;
                         this.cookbookItems = data0.tngou;
                         this.maxItems = data0.total;
-
-                        console.log('id=',qa_id,'toID',transition.to.params.id);
                         this.scrollTabBtn(qa_id);
                     }else{
                         transition.abort();
@@ -191,7 +192,9 @@ let Index = Vue.extend({
                 })
             }
         },
-        canReuse: false
+        canReuse: function(transition){
+            return true;
+        }
     }
 })
 
