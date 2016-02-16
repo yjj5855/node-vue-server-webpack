@@ -34,7 +34,6 @@ let Index = Vue.extend({
                 $.showPreloader();
                 cookbookService.getCookbookDetail(qa_id).then((response)=>{
                     $.hidePreloader();
-                    console.log(response)
                     if(response.status){
                         this.$data = {
                             cookbookDetail : response

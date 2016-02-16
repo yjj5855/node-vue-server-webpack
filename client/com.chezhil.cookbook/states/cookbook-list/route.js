@@ -123,7 +123,7 @@ let Index = Vue.extend({
     },
     computed : {
         isShowLoad : function(){
-            return this.maxItems > this.cookbookItems.length;
+            return (!this.maxItems || !this.cookbookItems || this.maxItems > this.cookbookItems.length);
         }
     },
     route : {
@@ -170,7 +170,6 @@ let Index = Vue.extend({
                 }
 
                 Q.all(promise).then((data)=>{
-                    $.hidePreloader();
                     let data0 = data[0];
                     if(data0.status){
                         this.id = qa_id;
@@ -189,9 +188,10 @@ let Index = Vue.extend({
                     },3e2);
                     transition.next();
                 }).catch((e)=>{
-                    $.hidePreloader();
                     $.toast("操作失败");
                     transition.abort();
+                }).finally(()=>{
+                    $.hidePreloader();
                 })
             }
         },
