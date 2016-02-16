@@ -11,3 +11,6 @@ server.js.map
 
 server/routes/*.js
 server/routes/*.js.map
+
+com.chezhil.m
+com.chezhil.webapp

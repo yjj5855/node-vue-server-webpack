@@ -1,30 +1,38 @@
-import Vue from 'vue'
 import Q from 'q'
-
-let listService = Vue.resource('http://apis.baidu.com/tngou/cook/list');
-let classService = Vue.resource('http://apis.baidu.com/tngou/cook/classify');
 
 function getCookbookList(id,page){
     return Q.Promise((success,error)=>{
-        listService.get({id:id,page:page}).then((response)=>{
-            if(response.status == 200 && response.data.status){
-                //拿第一页的时候保存到本地
-                if(page == 1){
-                    localStorage.setItem('cookbook_list_'+id,JSON.stringify({
-                        id : id,
-                        updateTime : new Date().getTime(),
-                        page : 2,
-                        cookbookItems : response.data.tngou,
-                        maxItems : response.data.total
-                    }));
+        $.ajax({
+            type : 'GET',
+            url  : 'http://apis.baidu.com/tngou/cook/list',
+            data : {
+                id : id ,
+                page : page
+            },
+            headers : {
+                apikey : 'a369f43a6392605426433831e10765ec'
+            },
+            success : function(response){
+                if(response.status){
+                    //拿第一页的时候保存到本地
+                    if(page == 1){
+                        localStorage.setItem('cookbook_list_'+id,JSON.stringify({
+                            id : id,
+                            updateTime : new Date().getTime(),
+                            page : 2,
+                            cookbookItems : response.tngou,
+                            maxItems : response.total
+                        }));
+                    }
+                    success(response)
+                }else{
+                    error('请求失败')
                 }
-                success(response.data)
-            }else{
+            },
+            error : function(xhr, errorType, error){
                 error('请求失败')
             }
-        }).catch((e)=>{
-            error(e)
-        })
+        });
     })
 }
 
@@ -33,22 +41,60 @@ function getCookbookClass(){
         return localStorage.getItem('cookbook_classes');
     }
     return Q.Promise((success,error)=>{
-        classService.get({id:0}).then((response)=>{
-            if(response.status == 200 && response.data.status){
-                localStorage.setItem('cookbook_classes',JSON.stringify(response.data.tngou));
-                success(response.data)
-            }else{
-                error('请求失败!')
+
+        $.ajax({
+            type : 'GET',
+            url  : 'http://apis.baidu.com/tngou/cook/classify',
+            data : {
+                id : 0
+            },
+            headers : {
+                apikey : 'a369f43a6392605426433831e10765ec'
+            },
+            success : function(response){
+                if(response.status){
+                    localStorage.setItem('cookbook_classes',JSON.stringify(response.tngou));
+                    success(response)
+                }else{
+                    error('请求失败!')
+                }
+            },
+            error : function(xhr, errorType, error){
+                error('请求失败')
             }
-        }).catch((e)=>{
-            error(e)
-        })
+        });
+
     })
 }
 
+function getCookbookDetail(id){
+    return Q.Promise((success,error)=>{
+        $.ajax({
+            type : 'GET',
+            url  : 'http://apis.baidu.com/tngou/cook/show',
+            data : {
+                id : id
+            },
+            headers : {
+                apikey : 'a369f43a6392605426433831e10765ec'
+            },
+            success : function(response){
+                if(response.status){
+                    success(response)
+                }else{
+                    error('请求失败')
+                }
+            },
+            error : function(xhr, errorType, error){
+                error('请求失败')
+            }
+        });
+    })
+}
 let cookbookService = {
     getCookbookList : getCookbookList,
-    getCookbookClass : getCookbookClass
+    getCookbookClass : getCookbookClass,
+    getCookbookDetail: getCookbookDetail
 };
 
 export default cookbookService;

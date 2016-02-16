@@ -22,6 +22,9 @@
 
     node server
 
+### 版本 V0.0.7
+* 去掉vue-resource使用zepto的ajax (兼容性原因)
+
 ### 版本 V0.0.6
 * 分离service层
 * 兼容微信浏览器中Promise.all保错 引入Q.js

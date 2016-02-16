@@ -4,7 +4,6 @@ import Tpl from './template.html'
 import Q from 'q'
 import cookbookService from '../../service/cookbook.service'
 
-
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
     template : Tpl,
@@ -65,7 +64,6 @@ let Index = Vue.extend({
             // 删除加载提示符
             $('.infinite-scroll-preloader').remove();
         }
-
     },
     data : ()=>{
         return {
@@ -153,7 +151,10 @@ let Index = Vue.extend({
                 this.maxItems = cookbook.maxItems;
                 this.updateTime = cookbook.updateTime;
 
-                this.scrollTabBtn(this.id);
+                setTimeout(()=>{
+                    $.init();
+                    this.scrollTabBtn(this.id);
+                },3e2);
                 transition.next();
             }
             else{
@@ -165,7 +166,6 @@ let Index = Vue.extend({
                     cookbookService.getCookbookList(qa_id,1)
                 ];
                 if(typeof localStorage.getItem('cookbook_classes') != 'string'){
-                    console.log(123);
                     promise.push(cookbookService.getCookbookClass());
                 }
 
@@ -177,13 +177,16 @@ let Index = Vue.extend({
                         this.page = 2;
                         this.cookbookItems = data0.tngou;
                         this.maxItems = data0.total;
-                        this.scrollTabBtn(qa_id);
                     }else{
                         transition.abort();
                     }
                     if(data.length > 1){
                         this.cookbookClasses = data[1].tngou;
                     }
+                    setTimeout(()=>{
+                        $.init();
+                        this.scrollTabBtn(qa_id);
+                    },3e2);
                     transition.next();
                 }).catch((e)=>{
                     $.hidePreloader();

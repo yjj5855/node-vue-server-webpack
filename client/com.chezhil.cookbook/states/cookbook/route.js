@@ -1,6 +1,7 @@
 'use strict';
 import Vue from 'vue'
 import Tpl from './template.html'
+import cookbookService from '../../service/cookbook.service'
 
 let Index = Vue.extend({
     //replace : false, //必须注释掉 不然动画失效
@@ -31,30 +32,19 @@ let Index = Vue.extend({
             }else{
                 let qa_id = transition.to.params.id;
                 $.showPreloader();
-                let resource = this.$resource('http://apis.baidu.com/tngou/cook/show');
-                resource.get({id: qa_id}).then((response)=>{
+                cookbookService.getCookbookDetail(qa_id).then((response)=>{
                     $.hidePreloader();
-                    if(response.status == 200){
+                    console.log(response)
+                    if(response.status){
                         this.$data = {
-                            cookbookDetail : response.data
+                            cookbookDetail : response
                         };
                         transition.next();
                     }else{
                         transition.abort();
                     }
-                });
+                })
             }
-        },
-        canActivate: function(){
-
-        },
-        activate: function (transition) {
-            this.$data.cookbookDetail = window.cm_cookbookDetail;
-            transition.next()
-        },
-        deactivate: function (transition) {
-            window.cm_cookbookDetail = this.$data.cookbookDetail
-            transition.next()
         }
     }
 })
