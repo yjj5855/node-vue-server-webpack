@@ -1,10 +1,17 @@
-<div>
 <div class="page page-current">
     <!-- 标题栏 -->
     <header class="bar bar-nav">
         <a class="icon icon-menu pull-left" @click="openPanel('left_panel')"></a>
         <h1 class="title">{{title}}</h1>
     </header>
+
+    <!--2级标题栏-->
+    <div class="bar bar-header-secondary" id="class_tab">
+        <a v-for="item in cookbookClasses" @click="goCookbook(item.id)"
+           class="button class_{{item.id}} {{item.id == id?'active':''}}"
+        >{{item.title}}</a>
+    </div>
+
 
     <div class="content infinite-scroll infinite-scroll-bottom pull-to-refresh-content"  data-ptr-distance="70" >
         <!-- 默认的下拉刷新层 -->
@@ -13,12 +20,7 @@
             <div class="pull-to-refresh-arrow"></div>
             <div style="position:absolute;bottom:-3px;width:100%;text-align: center;font-size: 12px;">{{updateTime | time-diff}}前更新过</div>
         </div>
-        <div class="buttons-tab" id="class_tab" style="display: block;">
-            <a v-for="item in cookbookClasses" @click="goCookbook(item.id)"
-               class="tab-link button class_{{item.id}} {{item.id == id?'active':''}}"
-               style="padding-bottom: .41rem"
-            >{{item.title}}</a>
-        </div>
+
 
         <div class="">
             <!-- 这里是页面内容区 -->
@@ -119,5 +121,4 @@
             </ul>
         </div>
     </div>
-</div>
 </div>

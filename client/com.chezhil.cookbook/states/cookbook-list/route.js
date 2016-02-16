@@ -28,7 +28,14 @@ let Index = Vue.extend({
                 loading = false;
             }).catch(()=>{
                 console.error('出错啦');
-            });
+            }).finally(()=>{
+                if(!this.isShowLoad){
+                    //解绑无限加载事件
+                    $.detachInfiniteScroll($('.infinite-scroll'));
+                    // 删除加载提示符
+                    $('.infinite-scroll-preloader').remove();
+                }
+            })
 
         });
 
@@ -54,18 +61,10 @@ let Index = Vue.extend({
                 $.pullToRefreshDone('.pull-to-refresh-content');
             })
         });
+
         //需要初始化一下,不然监听不到infinite事件
         $.init();
 
-        if(!this.isShowLoad){
-            //解绑无限加载事件
-            $.detachInfiniteScroll($('.infinite-scroll'));
-            // 删除加载提示符
-            $('.infinite-scroll-preloader').remove();
-        }
-        //setTimeout(()=>{
-        //    $.closePanel();
-        //})
     },
     data : ()=>{
         return {
@@ -101,7 +100,7 @@ let Index = Vue.extend({
         scrollTabBtn(id){
             console.log('动画id=',id);
             let class_id = id;
-            let $el = $('.tab-link.button.class_'+class_id);
+            let $el = $('.button.class_'+class_id);
             let el = $el[0];
             if($el.length == 0 ){
                 return;
