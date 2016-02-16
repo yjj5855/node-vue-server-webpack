@@ -1,6 +1,9 @@
 'use strict';
 import Vue from 'vue'
 import Tpl from './template.html'
+import Q from 'q'
+
+
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
@@ -91,7 +94,7 @@ let Index = Vue.extend({
         },
         loadCookbook(id,page){
             let self = this;
-            return new Promise((success,error)=>{
+            return Q.Promise((success,error)=>{
                 let resource = this.$resource('http://apis.baidu.com/tngou/cook/list');
                 resource.get({id:id,page:page}).then((response)=>{
                     if(response.status == 200 && response.data.status){
@@ -187,7 +190,7 @@ let Index = Vue.extend({
                     promise.push(resourceClass.get({ id: 0 }));
                 }
 
-                Promise.all(promise).then((data)=>{
+                Q.all(promise).then((data)=>{
                     $.hidePreloader();
                     let data0 = data[0];
                     if(data0.status == 200){
@@ -218,20 +221,9 @@ let Index = Vue.extend({
                 }).catch(()=>{
                     $.toast("操作失败");
                 })
-
             }
         },
-        canActivate: function(){
-
-        },
-        activate: function (transition) {
-            //this.$data = window.cm_cookbookItems;
-            transition.next()
-        },
-        deactivate: function (transition) {
-            //window.cm_cookbookItems = this.$data;
-            transition.next()
-        }
+        canReuse: false
     }
 })
 

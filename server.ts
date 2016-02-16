@@ -4,6 +4,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
+import * as cookieParser from 'cookie-parser';
 import {config} from './env'
 
 var webpack = require('webpack');
@@ -25,6 +26,7 @@ app.set('view options', { layout: false });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use(cookieParser());
 app.use(express.static(__dirname));
 
 var env = config.NODE_ENV || 'development';
@@ -37,6 +39,11 @@ if (env === 'development') {
         }
     }));
 }
+
+app.use(function(req, res, next){
+    console.log('经过cookies中间件',req.cookies);
+    next();
+});
 
 // Routes
 app.get('/', index.index);
