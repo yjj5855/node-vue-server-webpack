@@ -29,7 +29,7 @@ function getCookbookList(id,page){
                     error('请求失败')
                 }
             },
-            error : function(xhr, errorType, error){
+            error : function(xhr){
                 error('请求失败')
             }
         });
@@ -59,7 +59,7 @@ function getCookbookClass(){
                     error('请求失败!')
                 }
             },
-            error : function(xhr, errorType, error){
+            error : function(xhr, errorType){
                 error('请求失败')
             }
         });
@@ -85,7 +85,7 @@ function getCookbookDetail(id){
                     error('请求失败')
                 }
             },
-            error : function(xhr, errorType, error){
+            error : function(xhr, errorType){
                 error('请求失败')
             }
         });

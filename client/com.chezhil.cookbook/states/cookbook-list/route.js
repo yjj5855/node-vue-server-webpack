@@ -63,9 +63,9 @@ let Index = Vue.extend({
             // 删除加载提示符
             $('.infinite-scroll-preloader').remove();
         }
-        setTimeout(()=>{
-            $.closePanel();
-        })
+        //setTimeout(()=>{
+        //    $.closePanel();
+        //})
     },
     data : ()=>{
         return {
@@ -89,10 +89,14 @@ let Index = Vue.extend({
             this.$router.go('/cookbook/1');
         },
         goRoute(route){
-            $.closePanel();
-            setTimeout(()=>{
+            //$.closePanel();
+            $('body').removeClass('with-panel-left-reveal');
+            //setTimeout(()=>{
                 this.$router.go(route);
-            },5e2)
+            //},5e2)
+        },
+        openPanel(panel_id){
+            $.openPanel('#'+panel_id)
         },
         scrollTabBtn(id){
             console.log('动画id=',id);
@@ -106,23 +110,29 @@ let Index = Vue.extend({
             let scrollLeft = el.offsetLeft - el.parentNode.offsetLeft;
             let scrollLeft_active = $('#class_tab')?$('#class_tab')[0].scrollLeft:0;
 
-            if(scrollLeft_active - scrollLeft < 0){
-                for(let i=0;i<50;i++){
-                    (function(){
-                        setTimeout(()=>{
-                            $('#class_tab').scrollLeft(Math.abs(scrollLeft_active+(scrollLeft-scrollLeft_active)/50*i)-i);
-                        },5*i)
-                    })()
-                }
+
+            if($.device.android && $.device.isWeixin){
+                $('#class_tab').scrollLeft(scrollLeft-50);
             }else{
-                for(let i=0;i<50;i++){
-                    (function(){
-                        setTimeout(()=>{
-                            $('#class_tab').scrollLeft(scrollLeft-(scrollLeft_active-scrollLeft)/50*i-i);
-                        },5*i)
-                    })()
+                if(scrollLeft_active - scrollLeft < 0){
+                    for(let i=0;i<50;i++){
+                        (function(){
+                            setTimeout(()=>{
+                                $('#class_tab').scrollLeft(Math.abs(scrollLeft_active+(scrollLeft-scrollLeft_active)/50*i)-i);
+                            },5*i)
+                        })()
+                    }
+                }else{
+                    for(let i=0;i<50;i++){
+                        (function(){
+                            setTimeout(()=>{
+                                $('#class_tab').scrollLeft(scrollLeft-(scrollLeft_active-scrollLeft)/50*i-i);
+                            },5*i)
+                        })()
+                    }
                 }
             }
+
         }
     },
     computed : {
@@ -162,7 +172,7 @@ let Index = Vue.extend({
                 transition.next();
             }
             else{
-                $.showPreloader();
+                $.showIndicator()
                 //没有本地数据再去请求数据
                 let qa_id = transition.to.params.id;
 
@@ -195,12 +205,15 @@ let Index = Vue.extend({
                     $.toast("操作失败");
                     transition.abort();
                 }).finally(()=>{
-                    $.hidePreloader();
+                    $.hideIndicator()
                 })
             }
         },
         canReuse: function(transition){
             return true;
+        },
+        deactivate: function(transition){
+            transition.next();
         }
     }
 })

@@ -20,8 +20,7 @@ let Index = Vue.extend({
         goBack(){
             try{
                 let from = this.$route.router._currentTransition.from
-                if(from.path != 'undefined'){
-                    console.log(from.path);
+                if(typeof from.path != 'undefined'){
                     this.$router.go(from.path);
                 }else{
                     this.$router.go('cookbook/1');
@@ -41,9 +40,8 @@ let Index = Vue.extend({
                 transition.next();
             }else{
                 let qa_id = transition.to.params.id;
-                $.showPreloader();
+                $.showIndicator()
                 cookbookService.getCookbookDetail(qa_id).then((response)=>{
-                    $.hidePreloader();
                     if(response.status){
                         this.$data = {
                             cookbookDetail : response
@@ -52,6 +50,10 @@ let Index = Vue.extend({
                     }else{
                         transition.abort();
                     }
+                }).catch(()=>{
+                    transition.abort();
+                }).finally(()=>{
+                    $.hideIndicator();
                 })
             }
         }
