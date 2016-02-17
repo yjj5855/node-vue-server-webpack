@@ -7,10 +7,6 @@ import methodOverride = require("method-override");
 import * as cookieParser from 'cookie-parser';
 import {config} from './env'
 
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var WebpackConfig = require('./webpack.config');
-
 import * as index from "./server/routes/index";
 import * as cookbook from "./server/routes/cookbook";
 import * as cookbookDetail from './server/routes/cookbookDetail';
@@ -21,18 +17,11 @@ import * as search from './server/routes/search';
 var app = express();
 
 // Configuration
-
-app.set('views', __dirname + '/server/views');
-app.set('view engine', 'ejs');
-app.set('view options', { layout: false });
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(methodOverride());
-app.use(cookieParser());
-app.use(express.static(__dirname));
-
 var env = config.NODE_ENV || 'development';
 if (env === 'development') {
+    var webpack = require('webpack');
+    var webpackDevMiddleware = require('webpack-dev-middleware');
+    var WebpackConfig = require('./webpack.dev.config');
     app.use(errorHandler());
     app.use(webpackDevMiddleware(webpack(WebpackConfig), {
         publicPath: '/__build__/',
@@ -40,7 +29,21 @@ if (env === 'development') {
             colors: true
         }
     }));
+    app.set('views',__dirname + '/server/views');
+}else{
+    app.set('views',config.PATH_BUILD);
 }
+
+app.set('view engine', 'html');
+app.engine('.html', require('ejs').__express)
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(cookieParser());
+app.use(express.static(__dirname));
+
+
 
 app.use(function(req, res, next){
     console.log('经过cookies中间件',req.cookies);

@@ -68,7 +68,9 @@
 <body id="app">
 <div class="page-group">
 
-    <router-view ><%-server_html%></router-view>
+    <router-view>
+        <%-server_html%>
+    </router-view>
 
 </div>
 <script>
@@ -82,7 +84,12 @@
     }
 </script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js,sm-extend.min.js' charset='utf-8'></script>
-<script type="text/javascript" src="/__build__/vendor.js"></script>
-<script type="text/javascript" src="/__build__/app.js?v=0.11"></script>
+
+<!--这2个文件 在发版的时候要注释掉 只是在开发时引入-->
+<script type='text/javascript' src="/__build__/vendor.js"></script>
+<script type='text/javascript' src="/__build__/app.js"></script>
+<!--end-->
+
+
 </body>
 </html>
