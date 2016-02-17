@@ -1,0 +1,74 @@
+<div class="page page-current">
+    <header class="bar bar-nav">
+        <a class="icon icon-home pull-left" @click="goBack()"></a>
+        <h1 class="title">搜索</h1>
+    </header>
+    <div class="bar bar-header-secondary">
+        <div class="searchbar">
+            <a class="searchbar-cancel" @click="keyword = ''">取消</a>
+            <div class="search-input">
+                <label class="icon icon-search" for="search"></label>
+                <input type="search" id="search" v-model="keyword" placeholder='输入关键字...'/>
+            </div>
+        </div>
+    </div>
+    <div class="content" style="background: #f7f7f8">
+        <div v-if="keyword == ''">
+            <div class="content-block-title" style="margin-top: .5rem;">
+                <span>搜索历史</span>
+                <span class="pull-right" style="color: palevioletred;" @click="deleteSearchHistory(-1)">全部清除</span>
+            </div>
+            <div class="list-block" style="margin-top: 0;">
+                <ul>
+                    <li class="item-content" v-for="item in searchHistory" track-by="$index">
+                        <div class="item-inner">
+                            <div class="item-title">{{item}}</div>
+                            <div class="item-after" @click="deleteSearchHistory($index)">X</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="search-content" v-if="showSearchContent && keyword != ''">
+            <div class="content-block-title" style="margin-top: .5rem;">
+                已为您找到<span style="color: palevioletred;">100</span>条相关信息
+            </div>
+            <div class="list-block media-list" style="margin-top: 0;">
+                <ul>
+                    <li>
+                        <a href="javascript:;" class="item-link item-content">
+                            <div class="item-media">
+                                <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" style='width: 3rem;'>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">违章的9个注意事项</div>
+                                    <div class="item-after" style="font-size: .7rem">2016.1.1</div>
+                                </div>
+                                <div class="item-subtitle">
+                                    <span>6</span>
+                                    <span>0</span>
+                                    <span>0</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="item-link item-content">
+                            <div class="item-media">
+                                <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" style='width: 3rem;'>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">机油多少时间需要换?</div>
+                                    <div class="item-after" style="font-size: .7rem">2016.1.1</div>
+                                </div>
+                                <div class="item-subtitle" style="color:cornflowerblue">137******2323</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

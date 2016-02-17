@@ -8,6 +8,8 @@ import timeDiff from '../filter/date.filter'
 import Cookbook from 'bundle?lazy!./states/cookbook-list/route'
 import CookbookDetail from 'bundle?lazy!./states/cookbook/route'
 import Login from 'bundle?lazy!./states/login/route'
+import Search from 'bundle?lazy!./states/search/route'
+import Member from 'bundle?lazy!./states/member/route'
 
 //Vue.config.debug = true;
 //Vue.config.silent = true;//取消 Vue.js 所有的日志与警告。
@@ -30,6 +32,12 @@ router.map({
     },
     '/login': {
         component: Login
+    },
+    '/search': {
+        component: Search
+    },
+    '/member': {
+        component: Member
     }
 })
 router.redirect({

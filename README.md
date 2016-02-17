@@ -22,6 +22,11 @@
 
     node server
 
+### 版本 V0.0.8
+* 去除侧边栏 为单独一页
+* 新增 搜索页面
+* 新增 sui-picker指令
+
 ### 版本 V0.0.7
 * 去掉vue-resource使用zepto的ajax (兼容性原因)
 

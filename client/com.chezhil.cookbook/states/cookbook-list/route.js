@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Tpl from './template.html'
 import Q from 'q'
 import cookbookService from '../../service/cookbook.service'
+import '../../../directive/picker.directive'
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
@@ -65,6 +66,8 @@ let Index = Vue.extend({
         //需要初始化一下,不然监听不到infinite事件
         $.init();
 
+        this.valOptions = [1, 2, 3, 4, 5, 6];
+        this.displayOptions = ['上海', '北京', '广州', '深圳', '重庆', '杭州'];
     },
     data : ()=>{
         return {
@@ -75,6 +78,7 @@ let Index = Vue.extend({
             cookbookItems : [],
             maxItems : -1,
             updateTime : '',
+            valOptions : [],
         }
     },
     methods: {
@@ -142,6 +146,7 @@ let Index = Vue.extend({
     route : {
         data : function(transition){
             this.title = '菜谱列表';
+
             if(typeof localStorage.getItem('cookbook_classes') == 'string'){
                 this.cookbookClasses = JSON.parse(localStorage.getItem('cookbook_classes'));
             }

@@ -15,6 +15,8 @@ import * as index from "./server/routes/index";
 import * as cookbook from "./server/routes/cookbook";
 import * as cookbookDetail from './server/routes/cookbookDetail';
 import * as login from './server/routes/login';
+import * as member from './server/routes/member';
+import * as search from './server/routes/search';
 
 var app = express();
 
@@ -50,6 +52,8 @@ app.get('/', index.index);
 app.get('/cookbook', index.index);
 app.get('/cookbook/:id', cookbook.index);
 app.get('/cookbookDetail/:id', cookbookDetail.index);
+app.get('/member', member.index)
+app.get('/search', search.index)
 
 app.get('/login', login.index);
 

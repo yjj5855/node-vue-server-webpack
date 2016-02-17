@@ -62,6 +62,7 @@ export function index(req: express.Request, res: express.Response) {
                         page : 1,
                         maxItems : b.total,
                         updateTime : '',
+                        valOptions : [],
                     }
                 });
             }
@@ -77,6 +78,7 @@ export function index(req: express.Request, res: express.Response) {
                         page : 2,
                         maxItems : ${b.total},
                         updateTime : new Date().getTime(),
+                        valOptions : []
                     }`
                 })
             });

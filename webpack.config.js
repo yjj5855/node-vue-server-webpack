@@ -8,7 +8,13 @@ module.exports = {
   devtool: 'source-map',
 
   entry: {
-    app: "./client/com.chezhil.cookbook/main"
+    app: "./client/com.chezhil.cookbook/main",
+    //公共库
+    vendor : [
+      'vue',
+      'vue-router',
+      'q'
+    ]
   },
 
   output: {
@@ -27,6 +33,16 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+
+      filename: "vendor.js",
+      // (Give the chunk a different name)
+
+      minChunks: Infinity,
+      // (with more entries, this ensures that no other module
+      //  goes into the vendor chunk)
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false

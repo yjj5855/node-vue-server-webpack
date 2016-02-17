@@ -1,71 +1,12 @@
 <div class="page page-current">
     <!-- 标题栏 -->
     <header class="bar bar-nav">
-        <a class="icon icon-menu pull-left" @click="goRoute('/member')"></a>
-
-        <button class="button button-link button-nav pull-left" style="margin-left: .5rem">
-            <div v-sui-picker="title" options="valOptions" displayOptions="displayOptions">
-                <div displayValue>{{* title}}</div>
-                <!--城市选择-->
-                <input type="text" style="position: absolute;width: 100%;height: 100%;opacity: 0;left: 0;">
-            </div>
-        </button>
-
-        <button class="button button-link button-nav pull-right" style="margin-right: 0;">福利</button>
-        <a class="icon icon-search pull-right" @click="goRoute('/search')"></a>
+        <a class="icon icon-left pull-left" href="javascript:;" @click="goBack()"></a>
+        <h1 class="title">个人中心</h1>
     </header>
 
-    <!--2级标题栏-->
-    <div class="bar bar-header-secondary" id="class_tab">
-        <a v-for="item in cookbookClasses" @click="goCookbook(item.id)"
-           class="button class_{{item.id}} {{item.id == id?'active':''}}"
-        >{{item.title}}</a>
-    </div>
-
-
-    <div class="content infinite-scroll infinite-scroll-bottom pull-to-refresh-content"  data-ptr-distance="70" >
-        <!-- 默认的下拉刷新层 -->
-        <div class="pull-to-refresh-layer">
-            <div class="preloader"></div>
-            <div class="pull-to-refresh-arrow"></div>
-            <div style="position:absolute;bottom:-3px;width:100%;text-align: center;font-size: 12px;">{{updateTime | time-diff}}前更新过</div>
-        </div>
-
-        <div class="">
-            <!-- 这里是页面内容区 -->
-            <div id="cookbook_{{id}}">
-                <div class="card" v-for="item in cookbookItems" @click="goCookbookDetail(item.id)">
-                    <div class="card-content">
-                        <div class="list-block media-list">
-                            <ul>
-                                <li class="item-content">
-                                    <div class="item-media">
-                                        <img :src="'http://tnfs.tngou.net/img'+item.img" width="44">
-                                    </div>
-                                    <div class="item-inner">
-                                        <div class="item-title-row">
-                                            <div class="item-title">{{item.name}}</div>
-                                        </div>
-                                        <div class="item-subtitle">{{item.food}}</div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- 加载提示符 -->
-                <div class="infinite-scroll-preloader" v-if="isShowLoad">
-                    <div class="preloader"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--侧栏-->
-<div class="panel-overlay"></div>
-<div class="panel panel-left panel-reveal theme-dark" id="left_panel">
     <div class="content">
-        <div class="content-block-title">个人信息</div>
+        <div class="content-block-title" style="margin-top: .75rem;">个人信息</div>
         <div class="list-block">
             <ul>
                 <li class="item-content item-link" @click="goRoute('/login')">
@@ -130,5 +71,14 @@
                 </li>
             </ul>
         </div>
+
+        <div class="content-block">
+            <div class="row">
+                <div class="col-100">
+                    <a href="javascript:;"
+                        class="button button-big button-fill button-danger">退出登入</a></div>
+            </div>
+        </div>
     </div>
+
 </div>
