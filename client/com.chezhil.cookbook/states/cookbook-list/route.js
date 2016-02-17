@@ -4,6 +4,7 @@ import Tpl from './template.html'
 import Q from 'q'
 import cookbookService from '../../service/cookbook.service'
 import '../../../directive/picker.directive'
+import '../../../lib/sm-city-picker'
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
@@ -68,6 +69,7 @@ let Index = Vue.extend({
 
         this.valOptions = [1, 2, 3, 4, 5, 6];
         this.displayOptions = ['上海', '北京', '广州', '深圳', '重庆', '杭州'];
+
     },
     data : ()=>{
         return {
@@ -213,9 +215,7 @@ let Index = Vue.extend({
                 })
             }
         },
-        canReuse: function(transition){
-            return true;
-        },
+        canReuse: true, //可以被重用,跳转到其他cookbook/? 页面时触发. 设置为True跳转失败会无限跳转
         deactivate: function(transition){
             transition.next();
         }

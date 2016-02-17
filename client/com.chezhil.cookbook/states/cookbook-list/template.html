@@ -4,10 +4,17 @@
         <a class="icon icon-menu pull-left" @click="goRoute('/member')"></a>
 
         <button class="button button-link button-nav pull-left" style="margin-left: .5rem">
-            <div v-sui-picker="title" options="valOptions" displayOptions="displayOptions">
-                <div displayValue>{{* title}}</div>
+            <!--<div v-sui-picker="title" options="valOptions" displayOptions="displayOptions">-->
+                <!--<div displayValue>{{* title}}</div>-->
+                <!--&lt;!&ndash;城市选择&ndash;&gt;-->
+                <!--<input type="text" style="position: absolute;width: 100%;height: 100%;opacity: 0;left: 0;">-->
+            <!--</div>-->
+
+            <!--城市选择-->
+            <div v-sui-city-picker="">
+                <div displayValue>上海</div>
                 <!--城市选择-->
-                <input type="text" style="position: absolute;width: 100%;height: 100%;opacity: 0;left: 0;">
+                <input type="text" value="上海 上海" style="position: absolute;width: 100%;height: 100%;opacity: 0;left: 0;top: 0;">
             </div>
         </button>
 
