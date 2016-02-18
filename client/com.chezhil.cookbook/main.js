@@ -48,4 +48,6 @@ router.redirect({
 var App = Vue.extend({})
 
 //启动APP
-router.start(App, '#app')
+router.start(App, '#app');
+
+console.log('本地存储用了',JSON.stringify(localStorage).length/1024,'K');

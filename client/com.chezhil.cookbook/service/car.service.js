@@ -32,59 +32,61 @@ function getCarBrandList(){
     })
 }
 
-function getCarSeriesList(){
-    if(typeof localStorage.getItem('cookbook_classes') == 'string'){
-        return localStorage.getItem('cookbook_classes');
-    }
+function getCarSeriesList(brandId){
     return Q.Promise((success,error)=>{
+        if(typeof localStorage.getItem('car_series_'+brandId) == 'string'){
+            success(JSON.parse(localStorage.getItem('car_series_'+brandId)));
+        }else{
+            $.ajax({
+                type : 'GET',
+                url  : config.API_BASE_HOST+'getseries',
+                data : {
+                    brandId : brandId
+                },
+                headers : {
 
-        $.ajax({
-            type : 'GET',
-            url  : 'http://apis.baidu.com/tngou/cook/classify',
-            data : {
-                id : 0
-            },
-            headers : {
-                apikey : 'a369f43a6392605426433831e10765ec'
-            },
-            success : function(response){
-                if(response.status){
-                    localStorage.setItem('cookbook_classes',JSON.stringify(response.tngou));
-                    success(response)
-                }else{
-                    error('请求失败!')
+                },
+                success : function(response){
+                    console.log(response)
+                    if(response.code == 200){
+                        localStorage.setItem('car_series_'+brandId,JSON.stringify(response.data))
+                        success(response.data)
+                    }
+                },
+                error : function(xhr){
+                    error('请求失败')
                 }
-            },
-            error : function(xhr, errorType){
-                error('请求失败')
-            }
-        });
-
+            });
+        }
     })
 }
 
-function getCarTypeList(id){
+function getCarTypeList(seriesId){
     return Q.Promise((success,error)=>{
-        $.ajax({
-            type : 'GET',
-            url  : 'http://apis.baidu.com/tngou/cook/show',
-            data : {
-                id : id
-            },
-            headers : {
-                apikey : 'a369f43a6392605426433831e10765ec'
-            },
-            success : function(response){
-                if(response.status){
-                    success(response)
-                }else{
+        if(typeof localStorage.getItem('car_type_'+seriesId) == 'string'){
+            success(JSON.parse(localStorage.getItem('car_type_'+seriesId)));
+        }else{
+            $.ajax({
+                type : 'GET',
+                url  : config.API_BASE_HOST+'getcartype',
+                data : {
+                    seriesId : seriesId
+                },
+                headers : {
+
+                },
+                success : function(response){
+                    console.log(response)
+                    if(response.code == 200){
+                        localStorage.setItem('car_type_'+seriesId,JSON.stringify(response.data))
+                        success(response.data)
+                    }
+                },
+                error : function(xhr){
                     error('请求失败')
                 }
-            },
-            error : function(xhr, errorType){
-                error('请求失败')
-            }
-        });
+            });
+        }
     })
 }
 
