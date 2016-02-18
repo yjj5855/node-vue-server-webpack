@@ -1,6 +1,7 @@
 'use strict';
 import Vue from 'vue'
 import Tpl from './template.html'
+import './style.css'
 import Q from 'q'
 import cookbookService from '../../service/cookbook.service'
 import '../../../directive/picker.directive'

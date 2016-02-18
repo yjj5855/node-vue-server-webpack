@@ -1,19 +1,34 @@
 'use strict';
 import Vue from 'vue'
 import Tpl from './template.html'
+import './style.css'
+import carService from '../../service/car.service'
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
     template : Tpl,
     ready : function(){
         $.init();
+
+        carService.getCarBrandList().then((data)=>{
+            this.carBrandList = data;
+        });
     },
     data : ()=>{
         return {
+            carBrandList : [],
+            carSeriesList: [],
+            carTypeList  : [],
 
+            carBrandId : 0,
+            carSeriesId: 0,
+            carTypeId  : 0
         }
     },
     methods: {
+        goRoute(route){
+            this.$router.go(route);
+        },
         goBack(){
             let path;
             try{
@@ -22,6 +37,10 @@ let Index = Vue.extend({
             }catch (e){
                 this.$router.go('/cookbook/1')
             }
+        },
+        openCarSeriesPopup(carBrandId){
+            this.carBrandId = carBrandId;
+            $.popup('.popup-car-series');
         }
     },
     computed : {

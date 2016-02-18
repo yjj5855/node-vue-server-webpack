@@ -44,7 +44,7 @@
         <div class="content-block-title">车辆信息</div>
         <div class="list-block">
             <ul>
-                <li class="item-content item-link">
+                <li class="item-content item-link open-popup" data-popup=".popup-car-brand">
                     <div class="item-media"><i class="icon icon-f7"></i></div>
                     <div class="item-inner">
                         <div class="item-title">车型</div>
@@ -77,6 +77,88 @@
                 <div class="col-100">
                     <a href="javascript:;"
                         class="button button-big button-fill button-danger">退出登入</a></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--车品牌选择-->
+<div class="popup popup-car-brand">
+
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left close-popup" data-popup=".popup-car-brand" href="javascript:;"></a>
+        <h1 class="title">车品牌选择</h1>
+    </header>
+
+    <div class="content">
+        <div class="list-block contacts-block" style="margin: 0;">
+            <div class="list-group">
+                <ul>
+                    <li class="list-group-title">A</li>
+                    <li v-for="item in carBrandList"
+                        :class="{active:carBrandId == item.brand_id}"
+                        @click="openCarSeriesPopup(item.brand_id)">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">{{item.brand_name}}</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--车款选择-->
+<div class="popup popup-car-series">
+
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left close-popup" data-popup=".popup-car-series" href="javascript:;"></a>
+        <h1 class="title">车型选择</h1>
+        <button class="button button-fill pull-right">
+            保存
+        </button>
+    </header>
+    <div class="content">
+        <div class="row">
+            <div class="col-40">
+                <div class="list-block" style="margin: 0;">
+                    <ul>
+                        <li class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">A3</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </li>
+                        <li class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">A4</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-60" style="width: 60%;margin: 0;">
+                <div class="list-block" style="margin: 0;">
+                    <ul>
+                        <li class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">2014款</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </li>
+                        <li class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">2015款</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

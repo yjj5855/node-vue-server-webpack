@@ -29,7 +29,7 @@ if (env === 'development') {
             colors: true
         }
     }));
-    app.set('views',__dirname + '/server/views');
+    app.set('views',__dirname + '/server/views/dev');
 }else{
     app.set('views',config.PATH_BUILD);
 }

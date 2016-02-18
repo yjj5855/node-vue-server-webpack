@@ -1,6 +1,7 @@
 var webpack = require('webpack')
 var config = require('./webpack.base.config')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 config.devtool = 'source-map'
 
@@ -8,6 +9,8 @@ config.output.filename = '[name].[chunkhash:8].js'
 config.output.chunkFilename = '[id].[chunkhash:8].js'
 
 config.plugins = (config.plugins || []).concat([
+  //把所有独立样式的CSS打包成一个style.css
+  new ExtractTextPlugin("styles.[hash:8].css",{allChunks: true}),
   new webpack.optimize.CommonsChunkPlugin({
     name: "vendor",
 
@@ -25,7 +28,7 @@ config.plugins = (config.plugins || []).concat([
   }),
   new HtmlWebpackPlugin({
     name:'layout',
-    template: './server/views/layout.html',
+    template: './server/views/dist/layout.html',
     filename: 'layout.html',
     inject: 'body',
     chunks: ['vendor', 'app'],
