@@ -7,12 +7,15 @@ import methodOverride = require("method-override");
 import * as cookieParser from 'cookie-parser';
 import {config} from './env'
 
+
 import * as index from "./server/routes/index";
 import * as cookbook from "./server/routes/cookbook";
 import * as cookbookDetail from './server/routes/cookbookDetail';
 import * as login from './server/routes/login';
 import * as member from './server/routes/member';
 import * as search from './server/routes/search';
+import * as chat from './server/routes/chat';
+
 
 var app = express();
 
@@ -57,6 +60,7 @@ app.get('/cookbook/:id', cookbook.index);
 app.get('/cookbookDetail/:id', cookbookDetail.index);
 app.get('/member', member.index)
 app.get('/search', search.index)
+app.get('/chat', chat.index);
 
 app.get('/login', login.index);
 
