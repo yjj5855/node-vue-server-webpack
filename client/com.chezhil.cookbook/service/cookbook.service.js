@@ -23,6 +23,14 @@ function getCookbookList(id,page){
                             cookbookItems : response.tngou,
                             maxItems : response.total
                         }));
+                    }else{
+                        let oldValue = JSON.parse(localStorage.getItem('cookbook_list_'+id));
+                        for(let i=0;i<response.tngou.length;i++){
+                            oldValue.cookbookItems.push(response.tngou[i]);
+                        }
+                        oldValue.page = ++page;
+                        oldValue.maxItems = response.total
+                        localStorage.setItem('cookbook_list_'+id,JSON.stringify(oldValue))
                     }
                     success(response)
                 }else{

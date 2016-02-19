@@ -40,7 +40,7 @@
 
         <div class="">
             <!-- 这里是页面内容区 -->
-            <div id="cookbook_{{id}}">
+            <div class="cookbook-box" id="cookbook_{{id}}">
                 <div class="card" v-for="item in cookbookItems" @click="goCookbookDetail(item.id)">
                     <div class="card-content">
                         <div class="list-block media-list">
@@ -67,6 +67,12 @@
             </div>
         </div>
     </div>
+
+
+    <div class="bar bar-footer-secondary" style="bottom: 0;">
+        <button class="button button-fill button-block">提问技师</button>
+    </div>
+
 </div>
 <!--侧栏-->
 <div class="panel-overlay"></div>

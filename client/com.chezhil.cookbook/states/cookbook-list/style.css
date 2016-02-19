@@ -4,6 +4,7 @@
     overflow-x: auto;
     z-index: 3999;
     background: #fff;
+    box-shadow: 0 .05rem .1rem rgba(0,0,0,.3);
 }
 /*安卓版微信浏览器 不兼容flex布局*/
 #class_tab .button{
@@ -26,4 +27,8 @@
 }
 #class_tab>a{
     background: #fff;
+}
+
+.cookbook-box{
+    padding-bottom: 2.5rem;
 }

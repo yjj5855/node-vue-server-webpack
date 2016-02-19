@@ -14,11 +14,14 @@
 
     npm install
 
-### 2.typescript依赖安装
+### 2.typescript依赖安装 (需全局安装tsd)
 
     tsd install
 
-### 3.启动服务
+### 3.编译ts文件 (需全局安装tsc)
+    tsc
+
+### 4.启动服务
 
     node server
 

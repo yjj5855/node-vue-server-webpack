@@ -1,6 +1,7 @@
 'use strict';
 import Vue from 'vue'
 import Tpl from './template.html'
+import userService from '../../service/user.service'
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
@@ -27,6 +28,13 @@ let Index = Vue.extend({
             }catch (e){
                 this.$router.go('/cookbook/1')
             }
+        },
+        login(){
+
+        },
+        loginByWeiXin(){
+            //todo 跳转到微信授权页面 返回地址是登陆页
+            //window.location.href = '';
         }
     },
     computed : {

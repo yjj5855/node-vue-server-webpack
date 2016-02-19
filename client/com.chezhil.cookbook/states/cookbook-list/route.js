@@ -157,6 +157,13 @@ let Index = Vue.extend({
             if(window.cm_cookbookItems && window.cm_cookbookItems.id == transition.to.params.id){
                 console.log('应该只进入一次');
                 this.$data = window.cm_cookbookItems;
+                localStorage.setItem('cookbook_list_'+transition.to.params.id,JSON.stringify({
+                    id : transition.to.params.id,
+                    updateTime : new Date().getTime(),
+                    page : 2,
+                    cookbookItems : window.cm_cookbookItems.cookbookItems,
+                    maxItems : window.cm_cookbookItems.maxItems
+                }));
                 delete window.cm_cookbookItems;
                 setTimeout(()=>{
                     this.scrollTabBtn(transition.to.params.id)
