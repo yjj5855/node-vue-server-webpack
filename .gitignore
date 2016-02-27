@@ -5,7 +5,6 @@ __build__
 typings
 .DS_Store
 Thumbs.db
-env.js
 server.js
 server.js.map
 
