@@ -1,10 +1,11 @@
 {
-  "name": "cookbook",
+  "name": "webapp.chezhil.com",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "node server",
-    "build": "rm -rf ./__build__ && webpack --progress --hide-modules --config webpack.prod.config.js"
+    "forever": "forever -p . -l ./logs/access.log -e ./logs/error.log -a start server.js",
+    "build": "rm -rf ./public/webapp && webpack --progress --hide-modules --config webpack.prod.config.js"
   },
   "dependencies": {
     "babel": "^5.4.7",
@@ -20,6 +21,7 @@
     "q": "^1.4.1",
     "raw-loader": "^0.5.1",
     "request": "^2.69.0",
+    "request-promise": "^2.0.1",
     "ts-loader": "^0.8.0",
     "vue": "^1.0.15",
     "vue-resource": "^0.7.0",
@@ -32,6 +34,8 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.8.2",
+    "less": "^2.6.0",
+    "less-loader": "^2.2.2",
     "style-loader": "^0.13.0"
   }
 }

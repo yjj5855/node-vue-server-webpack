@@ -1,6 +1,6 @@
 
 //计算时间差
-module.exports = function (Vue){
+export default function(Vue){
     Vue.filter('time-diff',function(dateTime){
         var date1=new Date(dateTime);  //开始时间
         var date2=new Date();    //结束时间

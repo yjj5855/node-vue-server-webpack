@@ -1,3 +1,5 @@
+'use strict'
+import './server/typings/tsd.d.ts'
 import * as http from "http";
 import * as url from "url";
 import * as express from "express";

@@ -13,4 +13,4 @@ var env = {
 
 }
 
-module.exports.config = env;
+exports.config = env;
