@@ -1,3 +1,4 @@
+'use strict';
 var env = {
     PORT    :   '3001',
     NODE_ENV : 'development',

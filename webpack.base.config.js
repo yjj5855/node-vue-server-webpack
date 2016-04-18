@@ -31,7 +31,8 @@ module.exports = {
         loader: 'babel' ,
         query: {
           cacheDirectory: true,
-          presets: ['es2015','stage-3']
+          presets: ['es2015','stage-3'],
+          // plugins: ['transform-runtime']
         }
       },
       { test: /\.html$/, loader: 'raw' },
