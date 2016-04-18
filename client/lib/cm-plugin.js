@@ -1,5 +1,4 @@
 'use strict'
-import {config} from '../../env'
 
 var MyPlugin = {};
 MyPlugin.install = function (Vue, option) {

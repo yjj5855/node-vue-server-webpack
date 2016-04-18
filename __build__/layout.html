@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+    <title>Vue Router Example</title>
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+
+    <style type="text/css">
+
+        /*.test-transition {*/
+        /*transition: all .1s ease;*/
+        /*}*/
+
+        /*.test-enter {*/
+        /*opacity: 0;*/
+        /*transform: translate3d(10px, 0, 0);*/
+        /*}*/
+        /*.test-leave {*/
+        /*opacity: 0;*/
+        /*transform: translate3d(-10px, 0, 0);*/
+        /*}*/
+
+
+    </style>
+<link href="/__build__/styles.95a5313a.css" rel="stylesheet"></head>
+<body id="app">
+<div class="page-group">
+
+    <router-view>
+        <%-server_html%>
+    </router-view>
+
+</div>
+<script>
+    <%-server_data%>
+</script>
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script>
+    <!--SUI配置 关闭路由功能-->
+    $.config = {
+        router : false
+    }
+</script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js,sm-extend.min.js" charset="utf-8"></script>
+
+
+<script src="/__build__/vendor.95a5313a.js"></script><script src="/__build__/app.24b5d33b.js"></script></body>
+</html>

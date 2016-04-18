@@ -1,7 +1,7 @@
 'use strict';
 var env = {
     PORT    :   '3001',
-    NODE_ENV : 'development',
+    NODE_ENV : 'test',
     SELF_HOST : '127.0.0.1:3001',
     APIStore : {
         api_key   : 'a369f43a6392605426433831e10765ec',
