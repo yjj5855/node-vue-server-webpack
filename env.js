@@ -1,8 +1,8 @@
 'use strict';
 var env = {
-    PORT    :   '3001',
+    PORT    :   '3000',
     NODE_ENV : 'test',
-    SELF_HOST : '127.0.0.1:3001',
+    SELF_HOST : '127.0.0.1:3000',
     APIStore : {
         api_key   : 'a369f43a6392605426433831e10765ec',
         news_host : 'http://apis.baidu.com',
