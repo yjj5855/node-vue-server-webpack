@@ -4,8 +4,7 @@
         "sourceMap": true
     },
     "files": [
-        "./typings/tsd.d.ts",
-        "./server/routes/*.ts",
+        "./server/typings/tsd.d.ts",
         "./server.ts"
     ]
 }

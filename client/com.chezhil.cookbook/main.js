@@ -1,20 +1,14 @@
 ﻿'use strict';
+import './main.css'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import plugin from '../lib/cm-plugin'
 import timeDiff from '../filter/date.filter'
-
-//懒加载路由 只有访问这个路由才会加载js
-//import Index from 'bundle?lazy!./states/cookbook-class/route'
-import Cookbook from 'bundle?lazy!./states/cookbook-list/route'
-import CookbookDetail from 'bundle?lazy!./states/cookbook/route'
-import Login from 'bundle?lazy!./states/login/route'
-import Search from 'bundle?lazy!./states/search/route'
-import Member from 'bundle?lazy!./states/member/route'
-
 
 //Vue.config.debug = true;
 //Vue.config.silent = true;//取消 Vue.js 所有的日志与警告。
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+Vue.use(plugin);
 
 timeDiff(Vue); //定义过滤器
 
@@ -26,19 +20,22 @@ var router = new VueRouter({
 //定义路由
 router.map({
     '/cookbook/:id': {
-        component: Cookbook
+        component: function(resolve){
+            //webpack自带功能 实现异步加载路由
+            require.ensure([], function() {
+                let route = require('./states/cookbook-list/route').default;
+                resolve(route);
+            })
+        }
     },
     '/cookbookDetail/:id': {
-        component: CookbookDetail
-    },
-    '/login': {
-        component: Login
-    },
-    '/search': {
-        component: Search
-    },
-    '/member': {
-        component: Member,
+        component: function(resolve){
+            //webpack自带功能 实现异步加载路由
+            require.ensure([], function() {
+                let route = require('./states/cookbook/route').default;
+                resolve(route);
+            })
+        }
     }
 })
 router.redirect({

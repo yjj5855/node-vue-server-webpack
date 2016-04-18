@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "node server",
     "forever": "forever -p . -l ./logs/access.log -e ./logs/error.log -a start server.js",
-    "build": "rm -rf ./public/webapp && webpack --progress --hide-modules --config webpack.prod.config.js"
+    "build": "rm -rf ./__build__ && webpack --progress --hide-modules --config webpack.prod.config.js"
   },
   "dependencies": {
-    "babel": "^5.4.7",
-    "babel-core": "^5.4.7",
-    "babel-loader": "^5.0.0",
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-stage-3": "^6.0.0",
     "body-parser": "^1.14.1",
     "bundle-loader": "^0.5.2",
     "cookie-parser": "^1.4.1",
@@ -24,7 +25,6 @@
     "request-promise": "^2.0.1",
     "ts-loader": "^0.8.0",
     "vue": "^1.0.15",
-    "vue-resource": "^0.7.0",
     "vue-router": "^0.7.10",
     "vue-server": "^0.4.2",
     "webpack": "^1.4.13",

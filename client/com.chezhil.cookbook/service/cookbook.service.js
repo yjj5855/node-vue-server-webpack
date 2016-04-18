@@ -45,33 +45,37 @@ function getCookbookList(id,page){
 }
 
 function getCookbookClass(){
-    if(typeof localStorage.getItem('cookbook_classes') == 'string'){
-        return localStorage.getItem('cookbook_classes');
-    }
+    
     return Q.Promise((success,error)=>{
-
-        $.ajax({
-            type : 'GET',
-            url  : 'http://apis.baidu.com/tngou/cook/classify',
-            data : {
-                id : 0
-            },
-            headers : {
-                apikey : 'a369f43a6392605426433831e10765ec'
-            },
-            success : function(response){
-                if(response.status){
-                    localStorage.setItem('cookbook_classes',JSON.stringify(response.tngou));
-                    success(response)
-                }else{
-                    error('请求失败!')
+        
+        let classes = $.localStorage.getItem('cookbook_classes')
+        if(classes){
+            success(classes);
+        }else{
+            $.ajax({
+                type : 'GET',
+                url  : 'http://apis.baidu.com/tngou/cook/classify',
+                data : {
+                    id : 0
+                },
+                headers : {
+                    apikey : 'a369f43a6392605426433831e10765ec'
+                },
+                success : function(response){
+                    if(response.status){
+                        localStorage.setItem('cookbook_classes',JSON.stringify(response.tngou));
+                        success(response)
+                    }else{
+                        error('请求失败!')
+                    }
+                },
+                error : function(xhr, errorType){
+                    error('请求失败')
                 }
-            },
-            error : function(xhr, errorType){
-                error('请求失败')
-            }
-        });
+            });
 
+        }
+       
     })
 }
 

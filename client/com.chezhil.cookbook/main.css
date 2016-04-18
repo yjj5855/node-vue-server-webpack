@@ -1,0 +1,14 @@
+h2{
+    font-size: 1rem;
+}
+p{
+    font-size: .8rem;
+}
+img{
+    max-width: 100%;
+}
+
+div::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}

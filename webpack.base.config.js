@@ -26,7 +26,14 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel' ,
+        query: {
+          cacheDirectory: true,
+          presets: ['es2015','stage-3']
+        }
+      },
       { test: /\.html$/, loader: 'raw' },
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader','css-loader') }
     ]

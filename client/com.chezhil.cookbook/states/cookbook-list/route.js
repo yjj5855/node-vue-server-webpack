@@ -2,10 +2,9 @@
 import Vue from 'vue'
 import Tpl from './template.html'
 import './style.css'
+import value from './value'
 import Q from 'q'
 import cookbookService from '../../service/cookbook.service'
-import '../../../directive/picker.directive'
-import '../../../lib/sm-city-picker'
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
@@ -67,26 +66,19 @@ let Index = Vue.extend({
 
         //需要初始化一下,不然监听不到infinite事件
         $.init();
-
-        this.valOptions = [1, 2, 3, 4, 5, 6];
-        this.displayOptions = ['上海', '北京', '广州', '深圳', '重庆', '杭州'];
+        
+        setTimeout(()=>{
+            this.scrollTabBtn(this.id);
+        },3e2);
 
     },
     data : ()=>{
-        return {
-            cookbookClasses : [],
-            id : 0,
-            page : 1,
-            title : '菜谱列表',
-            cookbookItems : [],
-            maxItems : -1,
-            updateTime : '',
-            valOptions : [],
-        }
+        return value
     },
     methods: {
         goCookbook(id){
             this.$router.go('/cookbook/'+id);
+            this.scrollTabBtn(id);
         },
         goCookbookDetail(id){
             this.$router.go('/cookbookDetail/'+id);
@@ -105,7 +97,6 @@ let Index = Vue.extend({
             $.openPanel('#'+panel_id)
         },
         scrollTabBtn(id){
-            console.log('动画id=',id);
             let class_id = id;
             let $el = $('.button.class_'+class_id);
             let el = $el[0];
@@ -157,33 +148,30 @@ let Index = Vue.extend({
             if(window.cm_cookbookItems && window.cm_cookbookItems.id == transition.to.params.id){
                 console.log('应该只进入一次');
                 this.$data = window.cm_cookbookItems;
-                localStorage.setItem('cookbook_list_'+transition.to.params.id,JSON.stringify({
+                $.localStorage.setItem('cookbook_list_'+transition.to.params.id,{
                     id : transition.to.params.id,
                     updateTime : new Date().getTime(),
                     page : 2,
                     cookbookItems : window.cm_cookbookItems.cookbookItems,
                     maxItems : window.cm_cookbookItems.maxItems
-                }));
-                delete window.cm_cookbookItems;
-                setTimeout(()=>{
-                    this.scrollTabBtn(transition.to.params.id)
-                },3e2);
-                transition.next();
+                });
+                window.cm_cookbookItems = null;
             }
-            else if(typeof localStorage.getItem('cookbook_list_'+transition.to.params.id) == 'string'){
+            let cookbook = $.localStorage.getItem('cookbook_list_'+transition.to.params.id);
+            //缓存里面还有数据
+            if(this.id == transition.to.params.id){
+                setTimeout(()=>{
+                    $('.content').scrollTop(this.scrollTop);
+                });
+            }
+            else if(cookbook && cookbook.cookbookItems.length >= 10){
                 //本地如果有数据的话拿本地数据
-                let cookbook = JSON.parse(localStorage.getItem('cookbook_list_'+transition.to.params.id));
                 this.id = cookbook.id;
                 this.page = cookbook.page;
                 this.cookbookItems = cookbook.cookbookItems;
                 this.maxItems = cookbook.maxItems;
                 this.updateTime = cookbook.updateTime;
 
-                setTimeout(()=>{
-                    $.init();
-                    this.scrollTabBtn(this.id);
-                },3e2);
-                transition.next();
             }
             else{
                 $.showIndicator()
@@ -210,20 +198,29 @@ let Index = Vue.extend({
                     if(data.length > 1){
                         this.cookbookClasses = data[1].tngou;
                     }
-                    setTimeout(()=>{
-                        $.init();
-                        this.scrollTabBtn(qa_id);
-                    },3e2);
-                    transition.next();
                 }).catch((e)=>{
                     $.toast("操作失败");
-                    transition.abort();
                 }).finally(()=>{
                     $.hideIndicator()
                 })
+                
+                transition.next();
             }
         },
         canReuse: true, //可以被重用,跳转到其他cookbook/? 页面时触发. 设置为True跳转失败会无限跳转
+        activate : function(transition){
+            if(window.cm_cookbookItems){
+                this.cookbookClasses = window.cm_cookbookItems.cookbookClasses;
+            }
+            if(!this.cookbookClasses.length > 0){
+                cookbookService.getCookbookClass().then((data)=>{
+                    if(data.length > 0){
+                        this.cookbookClasses = data.tngou;
+                    }
+                })
+            }
+            transition.next();
+        },
         deactivate: function(transition){
             transition.next();
         }

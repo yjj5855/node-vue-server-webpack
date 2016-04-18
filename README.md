@@ -8,7 +8,6 @@
 
 ### <a href="http://182.92.99.230:3000/cookbook">一个简单的demo</a>
 
-### 注意 vue-server 有一些小BUG,前后端目前还不能用同一个组件,已经提过Issues了,之后会修复这个BUG.
 
 ### 1.安装
 
@@ -23,7 +22,11 @@
 
 ### 4.启动服务
 
-    node server
+    node server 或 npm run dev
+### 版本 V0.2.0
+* 删除多余文件
+* 服务端使用 async函数 获取API数据
+
 ### 版本 V0.1.1
 * 增加env文件
 
