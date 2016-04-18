@@ -2,11 +2,5 @@
 bower_components
 node_modules
 __build__
-typings
 .DS_Store
 Thumbs.db
-server.js
-server.js.map
-
-server/routes/*.js
-server/routes/*.js.map
