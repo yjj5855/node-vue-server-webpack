@@ -1,3 +1,4 @@
+'use strict';
 import Q from 'q'
 
 function getCookbookList(id,page){

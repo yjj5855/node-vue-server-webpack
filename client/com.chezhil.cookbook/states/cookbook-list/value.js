@@ -1,3 +1,4 @@
+'use strict';
 let value = {
     cookbookClasses : [],
     id : 0,

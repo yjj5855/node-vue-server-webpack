@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'source-map',
 
   entry: {
-    app: "./client/com.chezhil.cookbook/main",
+    app: "./client/com.chezhil.cookbook/main.js",
     //公共库
     vendor : [
       'vue',
