@@ -6,7 +6,7 @@
     <title>车知了</title>
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
 
-    <link rel="stylesheet" href="/webapp/styles.css">
+    <link rel="stylesheet" href="/liveSearch/styles.css">
 </head>
 <body id="app">
 <div class="page-group">
@@ -15,13 +15,12 @@
 
     </router-view>
 
-    <div id="server_html">
-        <%-server_html%>
-    </div>
+    <!--<div id="server_html">-->
+        <!--<%-server_html%>-->
+    <!--</div>-->
 
 </div>
 <script id="server_script">
-    <%-user_info%>
     <%-server_data%>
 </script>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
@@ -36,10 +35,14 @@
 <script type='text/javascript' src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" charset='utf-8'></script>
 
 <!--这2个文件 在发版的时候要注释掉 只是在开发时引入-->
-<script type='text/javascript' src="/webapp/vendor.js"></script>
-<script type='text/javascript' src="/webapp/web_app.js"></script>
+<script type='text/javascript' src="/liveSearch/vendor.js"></script>
+<script type='text/javascript' src="/liveSearch/web_app.js"></script>
 <!--end-->
-
+<script type="text/javascript">
+    function get(){
+        $('body').append('<scr'+'ipt src="http://www.panda.tv/search?kw=%E5%AE%88%E6%9C%9B%E5%85%88%E9%94%8B"></sc'+'ript>');
+    }
+</script>
 
 </body>
 </html>

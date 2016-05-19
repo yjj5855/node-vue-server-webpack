@@ -5,7 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 var env = {
     //NODE_ENV : 'test',
-    PORT: '6666'
+    PORT: '5669',
+
+    host_panda: 'http://www.panda.tv'
+
 };
 exports.default = env;
 

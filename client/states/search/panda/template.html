@@ -1,0 +1,49 @@
+<div class="content panda">
+
+    <div class="row" style="margin: 0;">
+        <div class="col-50 video-box"
+             @click="goRoute('/video?url='+encodeURIComponent('http://m.panda.tv/room.html?roomid='+item.roomid),this)"
+             v-for="item in pandaList.items | filterBy date in 'updatetime'"
+             transition="video-box"
+             stagger="200">
+            <span class="video-tag video-tag-online">直播</span>
+            <img :src.once="item.pictures.img" style="width: 100%">
+
+            <div class="video-title">
+               {{{item.name}}}
+            </div>
+            <div class="video-info">
+                <span class="video-nickname">{{item.nickname}}</span>
+                <span class="video-number">{{item.person_num}}</span>
+                <span class="video-cate">{{item.classification}}</span>
+            </div>
+        </div>
+
+        <div class="col-50 video-box" v-if="!isLoadOver"
+             @click="loadList()">
+            <img style="width: 100%;padding-bottom: 56.8%;">
+            <div class="load-more">加载更多</div>
+            <div class="video-title">
+                &emsp;
+            </div>
+            <div class="video-info">
+                <span class="">&emsp;</span>
+                <span class="">&emsp;</span>
+                <span class="">&emsp;</span>
+            </div>
+        </div>
+        <div class="col-50 video-box" v-else>
+            <img style="width: 100%;padding-bottom: 56.8%;">
+            <div class="load-more">没有更多了</div>
+            <div class="video-title">
+                &emsp;
+            </div>
+            <div class="video-info">
+                <span class="">&emsp;</span>
+                <span class="">&emsp;</span>
+                <span class="">&emsp;</span>
+            </div>
+        </div>
+    </div>
+
+</div>

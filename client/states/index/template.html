@@ -1,0 +1,7 @@
+<div class="page page-current index">
+
+    <input type="text" placeholder="输入关键字搜索"
+           v-model="keyword"
+           @keypress.enter="goRoute('/search/'+keyword,this)"
+    >
+</div>

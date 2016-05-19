@@ -10,10 +10,10 @@ module.exports = {
     web_app:"./client/main",
     //公共库
     vendor : [
+      'babel-polyfill',
       './env',
       'vue',
       'vue-router',
-      './client/service/api.service',
     ]
   },
 

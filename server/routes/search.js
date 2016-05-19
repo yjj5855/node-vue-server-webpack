@@ -58,4 +58,4 @@ exports.default = function () {
     };
 }();
 
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=search.js.map

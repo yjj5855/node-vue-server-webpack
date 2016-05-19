@@ -1,4 +1,5 @@
 'use strict'
+import "babel-polyfill"
 import express from "express";
 import bodyParser from "body-parser";
 import errorHandler from "errorhandler";
@@ -6,7 +7,9 @@ import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import config from './env'
 
-import index from "./server/routes/index";
+import * as clientApi from './server/routes/clientApi'
+import index from "./server/routes/index"
+import search from './server/routes/search'
 
 var app = express()
 app.use(errorHandler());
@@ -36,8 +39,14 @@ app.use(methodOverride());
 app.use(cookieParser());
 app.use(express.static(__dirname+'/public'));
 
-// Routes
+//前端路由
 app.get('/', index);
+app.get('/search/:keyword',index)
+app.get('/search/:keyword/panda',index)
+app.get('/video',index)
+
+//api
+app.get('/panda/:keyword',clientApi.panda)
 
 app.listen(config.PORT, function(){
     console.log("Demo Express server listening on port %d in %s mode", config.PORT, config.NODE_ENV || '');

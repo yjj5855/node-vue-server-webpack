@@ -1,5 +1,7 @@
 'use strict';
 
+require("babel-polyfill");
+
 var _express = require("express");
 
 var _express2 = _interopRequireDefault(_express);
@@ -24,9 +26,19 @@ var _env = require("./env");
 
 var _env2 = _interopRequireDefault(_env);
 
+var _clientApi = require("./server/routes/clientApi");
+
+var clientApi = _interopRequireWildcard(_clientApi);
+
 var _index = require("./server/routes/index");
 
 var _index2 = _interopRequireDefault(_index);
+
+var _search = require("./server/routes/search");
+
+var _search2 = _interopRequireDefault(_search);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,8 +70,14 @@ app.use((0, _methodOverride2.default)());
 app.use((0, _cookieParser2.default)());
 app.use(_express2.default.static(__dirname + '/public'));
 
-// Routes
+//前端路由
 app.get('/', _index2.default);
+app.get('/search/:keyword', _index2.default);
+app.get('/search/:keyword/panda', _index2.default);
+app.get('/video', _index2.default);
+
+//api
+app.get('/panda/:keyword', clientApi.panda);
 
 app.listen(_env2.default.PORT, function () {
     console.log("Demo Express server listening on port %d in %s mode", _env2.default.PORT, _env2.default.NODE_ENV || '');
