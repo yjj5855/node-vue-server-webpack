@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+    <title>车知了</title>
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+
+</head>
+<body id="app">
+<div class="page-group">
+
+    <router-view v-cloak>
+
+    </router-view>
+
+    <div id="server_html">
+        <%-server_html%>
+    </div>
+
+</div>
+<script id="server_script">
+    <%-user_info%>
+    <%-server_data%>
+</script>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script>
+    <!--SUI配置 关闭路由功能-->
+    $.config = {
+        router : false
+    }
+</script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js,sm-extend.min.js' charset='utf-8'></script>
+
+<script type='text/javascript' src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" charset='utf-8'></script>
+
+
+</body>
+</html>

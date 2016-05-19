@@ -1,13 +1,5 @@
 .idea/
-bower_components
 node_modules
 __build__
-typings
-.DS_Store
-Thumbs.db
-env.js
-server.js
-server.js.map
-
-server/routes/*.js
-server/routes/*.js.map
+*.es6
+*.js.map
