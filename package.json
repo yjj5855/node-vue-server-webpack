@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node server --harmony",
-    "forever": "forever -p . -l ./logs/access.log -e ./logs/error.log -a start server.js",
-    "build": "rm -rf ./public/webapp && webpack --progress --hide-modules --config webpack.prod.config.js"
+    "build": "rm -rf ./public/liveSearch && webpack --progress --hide-modules --config webpack.prod.config.js"
   },
   "dependencies": {
     "babel-core": "^6.0.0",
