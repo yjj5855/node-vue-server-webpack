@@ -47,6 +47,14 @@ router.map({
                     })
                 }
             },
+            '/huya': {
+                component: function(resolve){
+                    require.ensure([], function() {
+                        let route = require('./states/search/huya/route').default;
+                        resolve(route);
+                    })
+                }
+            },
             // 其他子路由
         }
     },

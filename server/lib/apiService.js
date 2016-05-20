@@ -11,8 +11,10 @@ var _env2 = _interopRequireDefault(_env);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var api_url = {
-    pandaHost: _env2.default.host_panda + '/search?kw=守望先锋',
-    searchPandaLiveRoom: _env2.default.host_panda + '/ajax_search'
+
+    searchPandaLiveRoom: _env2.default.host_panda + '/ajax_search',
+
+    searchHuyaLiveRoom: _env2.default.host_huya
 };
 
 exports.default = api_url;

@@ -74,10 +74,12 @@ app.use(_express2.default.static(__dirname + '/public'));
 app.get('/', _index2.default);
 app.get('/search/:keyword', _index2.default);
 app.get('/search/:keyword/panda', _index2.default);
+app.get('/search/:keyword/huya', _index2.default);
 app.get('/video', _index2.default);
 
 //api
 app.get('/panda/:keyword', clientApi.panda);
+app.get('/huya/:keyword', clientApi.huya);
 
 app.listen(_env2.default.PORT, function () {
     console.log("Demo Express server listening on port %d in %s mode", _env2.default.PORT, _env2.default.NODE_ENV || '');

@@ -7,24 +7,29 @@
     </router-view>
 
     <nav class="bar bar-tab">
-        <a class="tab-item external active" @click="goRoute('/search/'+this.$route.params.keyword+'/panda',this)">
+        <a class="tab-item external"
+           v-link="{ path: '/search/'+this.$route.params.keyword+'/panda', activeClass: 'active' }">
             <span class="icon icon-home"></span>
             <span class="tab-label">熊猫TV</span>
         </a>
-        <a class="tab-item external" href="#">
+        <a class="tab-item external"
+           v-link="{ path: '/search/'+this.$route.params.keyword+'/huya', activeClass: 'active' }">
             <span class="icon icon-me"></span>
             <span class="tab-label">虎牙</span>
-            <span class="badge">2</span>
+            <!--<span class="badge">2</span>-->
         </a>
-        <a class="tab-item external" href="#">
+        <a class="tab-item external"
+           v-link="{ path: '/search/'+this.$route.params.keyword+'/douyu', activeClass: 'active' }">
             <span class="icon icon-star"></span>
             <span class="tab-label">斗鱼</span>
         </a>
-        <a class="tab-item external" href="#">
+        <a class="tab-item external"
+           v-link="{ path: '/search/'+this.$route.params.keyword+'/bili', activeClass: 'active' }">
             <span class="icon icon-cart"></span>
             <span class="tab-label">B站</span>
         </a>
-        <a class="tab-item external" href="#">
+        <a class="tab-item external"
+           v-link="{ path: '/search/'+this.$route.params.keyword+'/zhanqi', activeClass: 'active' }">
             <span class="icon icon-settings"></span>
             <span class="tab-label">战旗</span>
         </a>

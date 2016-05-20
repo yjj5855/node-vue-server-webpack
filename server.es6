@@ -11,7 +11,7 @@ import * as clientApi from './server/routes/clientApi'
 import index from "./server/routes/index"
 import search from './server/routes/search'
 
-var app = express()
+var app = express();
 app.use(errorHandler());
 
 // Configuration
@@ -43,10 +43,12 @@ app.use(express.static(__dirname+'/public'));
 app.get('/', index);
 app.get('/search/:keyword',index)
 app.get('/search/:keyword/panda',index)
+app.get('/search/:keyword/huya',index)
 app.get('/video',index)
 
 //api
 app.get('/panda/:keyword',clientApi.panda)
+app.get('/huya/:keyword',clientApi.huya)
 
 app.listen(config.PORT, function(){
     console.log("Demo Express server listening on port %d in %s mode", config.PORT, config.NODE_ENV || '');
