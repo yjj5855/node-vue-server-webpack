@@ -1,0 +1,97 @@
+.page.index{
+  background: #E62878;
+
+  @cub: cubic-bezier(.73,.14,.4,1.58);
+  svg {
+    overflow: visible;
+  }
+  .search {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    //margin-left: -16rem;
+    //margin-top: -3.5rem;
+    width: 90%;
+    height: 5rem;
+
+    &:not(.active) {
+      cursor: pointer;
+    }
+  }
+  .search-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    &__path {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 6px;
+    }
+  }
+  .search-input {
+    position: relative;
+    width: 80%;
+    padding: 1rem 0 0 1.5rem;
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 2rem;
+    color: #fff;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    &.visible {
+      z-index: auto;
+      opacity: 1;
+    }
+  }
+  .search-close {
+    position: absolute;
+    top: .8rem;
+    right: 4%;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    z-index: -1;
+
+    &.visible {
+      z-index: auto;
+
+      &:before {
+        transform: rotate(-45deg);
+        opacity: 1;
+        transition: transform 0.2s @cub, opacity 0.1s;
+      }
+      &:after {
+        transform: rotate(45deg);
+        opacity: 1;
+        transition: transform 0.2s 0.2s @cub, opacity 0.1s 0.2s;
+      }
+    }
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 1.2rem;
+      left: 0;
+      width: 100%;
+      height: 0.6rem;
+      background: #fff;
+      border-radius: 0.5rem;
+      opacity: 0;
+    }
+    &:before {
+      transform: rotate(-45deg) translateX(2rem);
+      transition: transform 0.2s, opacity 0.1s 0.1s;
+    }
+    &:after {
+      transform: rotate(45deg) translateX(2rem);
+      transition: transform 0.2s 0.2s, opacity 0.1s 0.3s;
+    }
+  }
+}
