@@ -1,34 +1,34 @@
 <div class="page page-current search">
     <header class="bar bar-nav">
-        <a class="icon icon-left pull-left" @click="goBack(this)"></a>
+        <a class="icon icon-left pull-left" @click="goRoute('/',this)"></a>
     </header>
     <router-view v-cloak>
 
     </router-view>
 
     <nav class="bar bar-tab">
-        <a class="tab-item external"
+        <a class="tab-item external panda"
            v-link="{ path: '/search/'+this.$route.params.keyword+'/panda', activeClass: 'active' }">
             <span class="icon icon-home"></span>
             <span class="tab-label">熊猫TV</span>
         </a>
-        <a class="tab-item external"
+        <a class="tab-item external huya"
            v-link="{ path: '/search/'+this.$route.params.keyword+'/huya', activeClass: 'active' }">
             <span class="icon icon-me"></span>
             <span class="tab-label">虎牙</span>
             <!--<span class="badge">2</span>-->
         </a>
-        <a class="tab-item external"
+        <a class="tab-item external douyu"
            v-link="{ path: '/search/'+this.$route.params.keyword+'/douyu', activeClass: 'active' }">
             <span class="icon icon-star"></span>
             <span class="tab-label">斗鱼</span>
         </a>
-        <a class="tab-item external"
+        <a class="tab-item external bili"
            v-link="{ path: '/search/'+this.$route.params.keyword+'/bili', activeClass: 'active' }">
             <span class="icon icon-cart"></span>
             <span class="tab-label">bilibili</span>
         </a>
-        <a class="tab-item external"
+        <a class="tab-item external zhanqi"
            v-link="{ path: '/search/'+this.$route.params.keyword+'/zhanqi', activeClass: 'active' }">
             <span class="icon icon-settings"></span>
             <span class="tab-label">战旗</span>

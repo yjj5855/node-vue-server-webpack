@@ -21,4 +21,42 @@
   .content{
     top: 0;
   }
+  .tab-item{
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+
+    span{
+      visibility: hidden;
+    }
+
+    &.panda{
+      background-image: url("http://i5.pdim.gs/06b000f296eb5f4f2a16e9e012cfcf7e.png");
+    }
+    &.huya{
+      background-image: url("http://a.dwstatic.com/huya/main/img/logo_index_new09_4217d25.png");
+    }
+    &.douyu{
+      background-image: url("http://shark.douyucdn.cn/app/douyu/res/com/logo.png?20160303");
+    }
+    &.bili{
+      background-image: url("/img/bili-logo-s.png");
+    }
+    &.zhanqi{
+      background-image: url("http://dlstatic.cdn.zhanqi.tv/assets/web/static/i/logo-6.png");
+    }
+    &.active{
+      -webkit-filter: grayscale(0);
+      -moz-filter: grayscale(0);
+      filter: grayscale(0);
+    }
+  }
+
+  .bar.bar-tab{
+    background-color: rgba(255,255,255,.9);
+  }
+
 }

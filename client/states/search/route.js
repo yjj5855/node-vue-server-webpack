@@ -14,7 +14,9 @@ let Index = Vue.extend({
         
         //需要初始化一下,不然监听不到infinite事件
         $.init();
-
+    },
+    events : {
+        
     },
     data : ()=>{
         return Value
