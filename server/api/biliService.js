@@ -81,7 +81,10 @@ function formatJsonByHtml(rawHtml) {
             isliving: true
         };
     }
-    var total = $list_page[$list_page.length - 1].children[0].data * 42;
+    var total = 0;
+    try {
+        total = $list_page[$list_page.length - 1].children[0].data * 42;
+    } catch (err) {}
 
     return {
         status: 200,

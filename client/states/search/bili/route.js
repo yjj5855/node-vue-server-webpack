@@ -37,7 +37,7 @@ let Index = Vue.extend({
                     }
                 }
             }catch (error){
-                $.toast('请求斗鱼失败')
+                $.toast('请求bilibili失败')
             }
         }
     },
