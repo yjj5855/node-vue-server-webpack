@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.huya = exports.panda = undefined;
+exports.douyu = exports.huya = exports.panda = undefined;
 
 var panda = exports.panda = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(req, res) {
@@ -67,6 +67,54 @@ var huya = exports.huya = function () {
     };
 }();
 
+var douyu = exports.douyu = function () {
+    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(req, res) {
+        var keyword, page, html, list;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+                switch (_context3.prev = _context3.next) {
+                    case 0:
+                        keyword = req.params.keyword;
+                        page = req.query.page;
+                        html = '';
+                        list = {};
+                        _context3.prev = 4;
+                        _context3.next = 7;
+                        return douyuService.searchLiveRoom(keyword, page);
+
+                    case 7:
+                        html = _context3.sent;
+
+                        //todu 解析html成json 返回给客户端
+                        list = douyuService.formatJsonByHtml(html);
+                        _context3.next = 16;
+                        break;
+
+                    case 11:
+                        _context3.prev = 11;
+                        _context3.t0 = _context3['catch'](4);
+
+                        console.log(_context3.t0);
+                        res.json({ status: 200 });
+                        res.end();
+
+                    case 16:
+
+                        res.json(list);
+
+                    case 17:
+                    case 'end':
+                        return _context3.stop();
+                }
+            }
+        }, _callee3, this, [[4, 11]]);
+    }));
+
+    return function douyu(_x5, _x6) {
+        return ref.apply(this, arguments);
+    };
+}();
+
 var _pandaService = require('../api/pandaService');
 
 var service = _interopRequireWildcard(_pandaService);
@@ -74,6 +122,10 @@ var service = _interopRequireWildcard(_pandaService);
 var _huyaService = require('../api/huyaService');
 
 var huyaService = _interopRequireWildcard(_huyaService);
+
+var _douyuService = require('../api/douyuService');
+
+var douyuService = _interopRequireWildcard(_douyuService);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 

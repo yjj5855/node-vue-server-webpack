@@ -14,7 +14,9 @@ var api_url = {
 
     searchPandaLiveRoom: _env2.default.host_panda + '/ajax_search',
 
-    searchHuyaLiveRoom: _env2.default.host_huya
+    searchHuyaLiveRoom: _env2.default.host_huya,
+
+    searchDouyuLiveRoom: _env2.default.host_douyu
 };
 
 exports.default = api_url;

@@ -1,4 +1,3 @@
-import api from './apiService'
 
 //异步函数
 export async function searchLiveRoom(keyword,page){

@@ -5,7 +5,7 @@ export async function searchLiveRoom(keyword,page){
     return new Promise((success,error)=>{
         $.ajax({
             type : 'GET',
-            url  : '/panda/'+keyword+'?page='+page,
+            url  : '/douyu/'+keyword+'?page='+page,
             success : function(response){
                 success(response)
             },

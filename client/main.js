@@ -55,6 +55,14 @@ router.map({
                     })
                 }
             },
+            '/douyu': {
+                component: function(resolve){
+                    require.ensure([], function() {
+                        let route = require('./states/search/douyu/route').default;
+                        resolve(route);
+                    })
+                }
+            },
             // 其他子路由
         }
     },
