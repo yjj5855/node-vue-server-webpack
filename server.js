@@ -77,6 +77,7 @@ app.get('/search/:keyword/panda', _index2.default);
 app.get('/search/:keyword/huya', _index2.default);
 app.get('/search/:keyword/douyu', _index2.default);
 app.get('/search/:keyword/bili', _index2.default);
+app.get('/search/:keyword/zhanqi', _index2.default);
 app.get('/video', _index2.default);
 
 //api
@@ -84,6 +85,7 @@ app.get('/panda/:keyword', clientApi.panda);
 app.get('/huya/:keyword', clientApi.huya);
 app.get('/douyu/:keyword', clientApi.douyu);
 app.get('/bili/:keyword', clientApi.bili);
+app.get('/zhanqi/:keyword', clientApi.zhanqi);
 
 app.listen(_env2.default.PORT, function () {
     console.log("Demo Express server listening on port %d in %s mode", _env2.default.PORT, _env2.default.NODE_ENV || '');

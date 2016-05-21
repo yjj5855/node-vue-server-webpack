@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.bili = exports.douyu = exports.huya = exports.panda = undefined;
+exports.zhanqi = exports.bili = exports.douyu = exports.huya = exports.panda = undefined;
 
 var panda = exports.panda = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(req, res) {
@@ -98,7 +98,6 @@ var douyu = exports.douyu = function () {
                         res.end();
 
                     case 16:
-
                         res.json(list);
 
                     case 17:
@@ -145,7 +144,6 @@ var bili = exports.bili = function () {
                         res.end();
 
                     case 16:
-
                         res.json(list);
 
                     case 17:
@@ -157,6 +155,52 @@ var bili = exports.bili = function () {
     }));
 
     return function bili(_x7, _x8) {
+        return ref.apply(this, arguments);
+    };
+}();
+
+var zhanqi = exports.zhanqi = function () {
+    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(req, res) {
+        var keyword, page, html, list;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            while (1) {
+                switch (_context5.prev = _context5.next) {
+                    case 0:
+                        keyword = req.params.keyword;
+                        page = req.query.page;
+                        html = '';
+                        list = {};
+                        _context5.prev = 4;
+                        _context5.next = 7;
+                        return zhanqiService.searchLiveRoom(keyword, page);
+
+                    case 7:
+                        html = _context5.sent;
+
+                        list = zhanqiService.formatJsonByHtml(html);
+                        _context5.next = 16;
+                        break;
+
+                    case 11:
+                        _context5.prev = 11;
+                        _context5.t0 = _context5['catch'](4);
+
+                        console.log(_context5.t0);
+                        res.json({ status: 200 });
+                        res.end();
+
+                    case 16:
+                        res.json(list);
+
+                    case 17:
+                    case 'end':
+                        return _context5.stop();
+                }
+            }
+        }, _callee5, this, [[4, 11]]);
+    }));
+
+    return function zhanqi(_x9, _x10) {
         return ref.apply(this, arguments);
     };
 }();
@@ -176,6 +220,10 @@ var douyuService = _interopRequireWildcard(_douyuService);
 var _biliService = require('../api/biliService');
 
 var biliService = _interopRequireWildcard(_biliService);
+
+var _zhanqiService = require('../api/zhanqiService');
+
+var zhanqiService = _interopRequireWildcard(_zhanqiService);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 

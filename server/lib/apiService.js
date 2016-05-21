@@ -18,7 +18,9 @@ var api_url = {
 
     searchDouyuLiveRoom: _env2.default.host_douyu,
 
-    searchBiliLiveRoom: _env2.default.host_bili + '/search/index'
+    searchBiliLiveRoom: _env2.default.host_bili + '/search/index',
+
+    searchZhanqiLiveRoom: _env2.default.host_zhanqi + '/search'
 };
 
 exports.default = api_url;

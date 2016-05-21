@@ -1,0 +1,52 @@
+<div class="content zhanqi">
+
+    <div class="row" style="margin: 0;">
+        <div class="col-50 video-box"
+             @click="goRoute('/video?url='+encodeURIComponent('http://www.zhanqi.tv/'+item.href),this)"
+             v-for="item in zhanqiList.items | filterBy isliving in 'isliving'"
+             transition="video-box"
+             stagger="100">
+            <span class="video-tag video-tag-online">直播</span>
+            <div class="video-img">
+                <img :src.once="item.img">
+            </div>
+            <div class="video-title">
+               {{{item.title}}}
+            </div>
+            <div class="video-info">
+                <span class="video-nickname">{{item.nick}}</span>
+                <span class="video-number">{{item.person}}</span>
+                <span class="video-cate">{{item.type}}</span>
+            </div>
+        </div>
+
+        <template v-if="!showAnimation">
+            <div class="col-50 video-box" v-if="!isLoadOver"
+                 @click="loadList()">
+                <div class="video-img"></div>
+                <div class="load-more">加载更多</div>
+                <div class="video-title">
+                    &emsp;
+                </div>
+                <div class="video-info">
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                </div>
+            </div>
+            <div class="col-50 video-box" v-else>
+                <div class="video-img"></div>
+                <div class="load-more">没有更多了</div>
+                <div class="video-title">
+                    &emsp;
+                </div>
+                <div class="video-info">
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                </div>
+            </div>
+        </template>
+    </div>
+
+</div>

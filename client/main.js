@@ -72,7 +72,14 @@ router.map({
                     })
                 }
             },
-            // 其他子路由
+            '/zhanqi': {
+                component: function(resolve){
+                    require.ensure([], function() {
+                        let route = require('./states/search/zhanqi/route').default;
+                        resolve(route);
+                    })
+                }
+            }
         }
     },
     '/video': {

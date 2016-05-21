@@ -1,0 +1,102 @@
+.content.zhanqi{
+  padding-top: .2rem;
+  padding-bottom: 3rem;
+
+  .video-box{
+    width: 48%;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    position: relative;
+    background: #fff;
+    box-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.3);
+
+    .video-tag{
+      display: inline-block;
+      position: absolute;
+      top: 14px;
+      width: 50px;
+      height: 22px;
+      font-size: 15px;
+      line-height: 22px;
+      color: #fff;
+      text-align: center;
+      z-index: 1;
+
+      &.video-tag-online{
+        background-color: #00a0ff;
+      }
+    }
+    .video-img{
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.8%;
+      overflow: hidden;
+
+      img{
+        width: 100%;position: absolute;
+      }
+    }
+
+    .video-title{
+      max-width: 70%;
+      padding-left: 5px;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      b{
+        color: #ff2121;
+      }
+    }
+    .video-info{
+      position: relative;
+      font-size: 12px;
+
+      .video-nickname{
+        width: 200px;
+        margin-left: 5px;
+        padding-left: 12px;
+        background: url("http://i8.pdim.gs/215adf54fcfe0cc52e924a670373eca2.png") 0 0px no-repeat;
+        color: #787878;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .video-number{
+        position: absolute;
+        padding-left: 17px;
+        top: 0;
+        right: 5px;
+        background: url("http://i9.pdim.gs/5e2630d66e51d54abb59f49198fa5dd1.png") 0 3px no-repeat;
+        color: #787878;
+      }
+      .video-cate{
+        position: absolute;
+        right: 5px;
+        top: -17px;
+        width: 48px;
+        color: #00a0ff;
+        overflow: hidden;
+        text-align: right;
+        //text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .load-more{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100px;
+      margin: auto;
+      height: 30px;
+      text-align: center;
+    }
+  }
+
+}

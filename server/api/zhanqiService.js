@@ -15,9 +15,9 @@ var searchLiveRoom = exports.searchLiveRoom = function () {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
-                        return _context.abrupt('return', (0, _requestPromise2.default)(_apiService2.default.searchBiliLiveRoom + '/' + (page > 1 ? page : '') + '?' + _querystring2.default.stringify({
-                            keyword: keyword,
-                            type: 'all'
+                        return _context.abrupt('return', (0, _requestPromise2.default)(_apiService2.default.searchZhanqiLiveRoom + '?' + _querystring2.default.stringify({
+                            q: keyword,
+                            t: 'live'
                         })));
 
                     case 1:
@@ -61,33 +61,39 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 function formatJsonByHtml(rawHtml) {
     var $ = _cheerio2.default.load(rawHtml);
 
-    var $list_a = $('#list-content .vedioBlock>a').toArray();
-    var $list_img = $('#list-content .listVimg img').toArray();
-    var $list_avatar = $('#list-content .face img').toArray();
-    var $list_title = $('#list-content .listVtitle').toArray();
-    var $list_nick = $('#list-content .upInfo .upTitle').toArray();
-    var $list_person = $('#list-content .upInfo .peopleNum').toArray();
-    var $list_page = $('ul.page>li>:not(.lastpage)').toArray();
+    var $list_a = $('ul.live-list>li>a').toArray();
+    var $list_img = $('ul.live-list>li>a .imgBox img').toArray();
+    var $list_title = $('ul.live-list>li>a .info-area .name').toArray();
+    var $list_nick = $('ul.live-list>li>a .info-area .meat .anchor').toArray();
+    var $list_type = $('ul.live-list>li>a .info-area .meat .game-name').toArray();
+    var $list_person = $('ul.live-list>li>a .info-area .meat>.views>span.dv').toArray();
 
     var jsonList = new Array($list_a.length);
     for (var i = 0; i < $list_a.length; i++) {
+
+        var title = '';
+        for (var j = 0; j < $list_title[i].children.length; j++) {
+            if ($list_title[i].children[j].type == 'tag' && $list_title[i].children[j].name == 'em') {
+                title += '<b>' + $list_title[i].children[j].children[0].data + '</b>';
+            } else {
+                title += $list_title[i].children[j].data;
+            }
+        }
         jsonList[i] = {
-            title: $list_title[i].children[0].data,
+            title: title,
             href: $list_a[i].attribs.href,
             img: $list_img[i].attribs.src,
-            avatar: $list_avatar[i].attribs.src,
             nick: $list_nick[i].children[0].data,
+            type: $list_type[i].children[0].data,
             person: $list_person[i].children[0].data,
             isliving: true
         };
     }
-    var total = $list_page[$list_page.length - 1].children[0].data * 42;
 
     return {
         status: 200,
-        total: total,
         items: jsonList
     };
 }
 
-//# sourceMappingURL=biliService.js.map
+//# sourceMappingURL=zhanqiService.js.map
