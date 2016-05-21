@@ -16,7 +16,9 @@ var api_url = {
 
     searchHuyaLiveRoom: _env2.default.host_huya,
 
-    searchDouyuLiveRoom: _env2.default.host_douyu
+    searchDouyuLiveRoom: _env2.default.host_douyu,
+
+    searchBiliLiveRoom: _env2.default.host_bili + '/search/index'
 };
 
 exports.default = api_url;

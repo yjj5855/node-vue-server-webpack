@@ -8,7 +8,8 @@ var env = {
     PORT: '5669',
     host_panda: 'http://www.panda.tv',
     host_huya: 'http://search.huya.com',
-    host_douyu: 'http://www.douyu.com'
+    host_douyu: 'http://www.douyu.com',
+    host_bili: 'http://live.bilibili.com'
 };
 exports.default = env;
 

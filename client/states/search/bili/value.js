@@ -1,6 +1,6 @@
 const value = {
-    date : new Date().Format('yyyy-MM-dd'),
-    huyaList : {
+    isliving : true,
+    biliList : {
         items : [],
         total : 0
     },

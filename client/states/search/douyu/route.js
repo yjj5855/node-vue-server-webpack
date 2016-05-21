@@ -28,6 +28,10 @@ let Index = Vue.extend({
                 if(data && data.status == 200){
                     this.page += 1;
                     this.douyuList.total = data.total;
+                    setTimeout(()=>{
+                        this.showAnimation = false;
+                    },data.items.length * this.stagger)
+                    this.showAnimation = true;
                     for(let i=0;i<data.items.length;i+=1){
                         this.douyuList.items.push(data.items[i])
                     }

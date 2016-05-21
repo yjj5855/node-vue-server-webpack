@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.douyu = exports.huya = exports.panda = undefined;
+exports.bili = exports.douyu = exports.huya = exports.panda = undefined;
 
 var panda = exports.panda = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(req, res) {
@@ -85,7 +85,6 @@ var douyu = exports.douyu = function () {
                     case 7:
                         html = _context3.sent;
 
-                        //todu 解析html成json 返回给客户端
                         list = douyuService.formatJsonByHtml(html);
                         _context3.next = 16;
                         break;
@@ -115,6 +114,53 @@ var douyu = exports.douyu = function () {
     };
 }();
 
+var bili = exports.bili = function () {
+    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(req, res) {
+        var keyword, page, html, list;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            while (1) {
+                switch (_context4.prev = _context4.next) {
+                    case 0:
+                        keyword = req.params.keyword;
+                        page = req.query.page;
+                        html = '';
+                        list = {};
+                        _context4.prev = 4;
+                        _context4.next = 7;
+                        return biliService.searchLiveRoom(keyword, page);
+
+                    case 7:
+                        html = _context4.sent;
+
+                        list = biliService.formatJsonByHtml(html);
+                        _context4.next = 16;
+                        break;
+
+                    case 11:
+                        _context4.prev = 11;
+                        _context4.t0 = _context4['catch'](4);
+
+                        console.log(_context4.t0);
+                        res.json({ status: 200 });
+                        res.end();
+
+                    case 16:
+
+                        res.json(list);
+
+                    case 17:
+                    case 'end':
+                        return _context4.stop();
+                }
+            }
+        }, _callee4, this, [[4, 11]]);
+    }));
+
+    return function bili(_x7, _x8) {
+        return ref.apply(this, arguments);
+    };
+}();
+
 var _pandaService = require('../api/pandaService');
 
 var service = _interopRequireWildcard(_pandaService);
@@ -126,6 +172,10 @@ var huyaService = _interopRequireWildcard(_huyaService);
 var _douyuService = require('../api/douyuService');
 
 var douyuService = _interopRequireWildcard(_douyuService);
+
+var _biliService = require('../api/biliService');
+
+var biliService = _interopRequireWildcard(_biliService);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 

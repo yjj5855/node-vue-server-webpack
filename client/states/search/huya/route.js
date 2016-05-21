@@ -29,6 +29,10 @@ let Index = Vue.extend({
                     let list = data.response[3].docs;
                     let total =  data.response[3].numFound;
                     this.huyaList.total = total;
+                    setTimeout(()=>{
+                        this.showAnimation = false;
+                    },list.length * this.stagger)
+                    this.showAnimation = true;
                     for(let i=0;i<list.length;i+=1){
                         this.huyaList.items.push(list[i])
                     }

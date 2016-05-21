@@ -5,7 +5,7 @@
              @click="goRoute('/video?url='+encodeURIComponent('http://m.huya.com/'+item.game_privateHost),this)"
              v-for="item in huyaList.items"
              transition="video-box"
-             stagger="200">
+             stagger="100">
             <span class="video-tag video-tag-online">直播</span>
             <div class="video-img">
                 <img :src.once="item.game_screenshot">
@@ -20,31 +20,33 @@
             </div>
         </div>
 
-        <div class="col-50 video-box" v-if="!isLoadOver"
-             @click="loadList()">
-            <div class="video-img"></div>
-            <div class="load-more">加载更多</div>
-            <div class="video-title">
-                &emsp;
+        <template v-if="!showAnimation">
+            <div class="col-50 video-box" v-if="!isLoadOver"
+                 @click="loadList()">
+                <div class="video-img"></div>
+                <div class="load-more">加载更多</div>
+                <div class="video-title">
+                    &emsp;
+                </div>
+                <div class="video-info">
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                </div>
             </div>
-            <div class="video-info">
-                <span class="">&emsp;</span>
-                <span class="">&emsp;</span>
-                <span class="">&emsp;</span>
+            <div class="col-50 video-box" v-else>
+                <div class="video-img"></div>
+                <div class="load-more">没有更多了</div>
+                <div class="video-title">
+                    &emsp;
+                </div>
+                <div class="video-info">
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                    <span class="">&emsp;</span>
+                </div>
             </div>
-        </div>
-        <div class="col-50 video-box" v-else>
-            <div class="video-img"></div>
-            <div class="load-more">没有更多了</div>
-            <div class="video-title">
-                &emsp;
-            </div>
-            <div class="video-info">
-                <span class="">&emsp;</span>
-                <span class="">&emsp;</span>
-                <span class="">&emsp;</span>
-            </div>
-        </div>
+        </template>
     </div>
 
 </div>

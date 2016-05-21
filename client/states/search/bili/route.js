@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Tpl from './template.html'
 import Value from './value'
 import './style.less'
-import {searchLiveRoom} from '../../../service/pandaService'
+import {searchLiveRoom} from '../../../service/biliService'
 
 let Index = Vue.extend({
     //replace : true, //必须注释掉 不然动画失效
@@ -25,25 +25,25 @@ let Index = Vue.extend({
             try{
                 let keyword = this.$route.params.keyword;
                 let data = await searchLiveRoom(keyword,this.page);
-                if(data && data.errno == 0){
-                    this.pandaList.total = data.data.total;
+                if(data && data.status == 200){
+                    this.page += 1;
+                    this.biliList.total = data.total;
                     setTimeout(()=>{
                         this.showAnimation = false;
-                    },data.data.items.length * this.stagger)
+                    },data.items.length * this.stagger)
                     this.showAnimation = true;
-                    for(let i=0;i<data.data.items.length;i+=1){
-                        this.pandaList.items.push(data.data.items[i])
+                    for(let i=0;i<data.items.length;i+=1){
+                        this.biliList.items.push(data.items[i])
                     }
-                    this.page += 1;
                 }
             }catch (error){
-                $.toast('请求熊猫TV失败')
+                $.toast('请求斗鱼失败')
             }
         }
     },
     computed : {
        isLoadOver(){
-           return this.pandaList.items.length >= parseInt(this.pandaList.total);
+           return this.biliList.items.length >= parseInt(this.biliList.total);
        }
     },
     route : {
@@ -52,7 +52,7 @@ let Index = Vue.extend({
             this.loadList();
         },
         deactivate : function (transition) {
-            this.pandaList = {
+            this.biliList = {
                 items : [],
                 total : 0
             };

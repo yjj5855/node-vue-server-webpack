@@ -1,4 +1,4 @@
-.content.panda{
+.content.bili{
   padding-top: .2rem;
   padding-bottom: 3rem;
 
@@ -11,6 +11,7 @@
     position: relative;
     background: #fff;
     box-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
 
     .video-tag{
       display: inline-block;
@@ -36,12 +37,25 @@
 
       img{
         width: 100%;position: absolute;
+        border-radius: 4px 4px 0 0;
       }
     }
 
+    .video-avatar{
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      bottom: 1rem;
+      left: .3rem;
+      img{
+        width: 100%;
+        border-radius: 50%;
+        border: 2px solid #fff;
+      }
+    }
     .video-title{
-      max-width: 70%;
-      padding-left: 5px;
+      max-width: 95%;
+      padding-left: 30%;
       font-size: 12px;
       overflow: hidden;
       text-overflow: ellipsis;

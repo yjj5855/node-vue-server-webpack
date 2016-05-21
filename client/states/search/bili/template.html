@@ -1,23 +1,25 @@
-<div class="content panda">
+<div class="content bili">
 
     <div class="row" style="margin: 0;">
         <div class="col-50 video-box"
-             @click="goRoute('/video?url='+encodeURIComponent('http://m.panda.tv/room.html?roomid='+item.roomid),this)"
-             v-for="item in pandaList.items | filterBy date in 'updatetime'"
+             @click="goRoute('/video?url='+encodeURIComponent('http://live.bilibili.com/h5'+item.href),this)"
+             v-for="item in biliList.items | filterBy isliving in 'isliving'"
              transition="video-box"
              stagger="100">
-            <span class="video-tag video-tag-online">直播</span>
+            <!--<span class="video-tag video-tag-online">直播</span>-->
             <div class="video-img">
-                <img :src.once="item.pictures.img">
+                <img :src.once="item.img">
             </div>
-
+            <div class="video-avatar">
+                <img :src.once="item.avatar" style=""/>
+            </div>
             <div class="video-title">
-               {{{item.name}}}
+               {{{item.title}}}
             </div>
             <div class="video-info">
-                <span class="video-nickname">{{item.nickname}}</span>
-                <span class="video-number">{{item.person_num}}</span>
-                <span class="video-cate">{{item.classification}}</span>
+                <span class="video-nickname">{{item.nick}}</span>
+                <span class="video-number">{{item.person}}</span>
+                <span class="video-cate">{{item.type}}</span>
             </div>
         </div>
 
