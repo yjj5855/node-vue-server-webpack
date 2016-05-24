@@ -5,9 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.searchLiveRoom = undefined;
 
-
-//异步函数
-
 var searchLiveRoom = exports.searchLiveRoom = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(keyword) {
         var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
