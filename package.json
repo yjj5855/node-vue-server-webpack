@@ -34,6 +34,8 @@
     "html-webpack-plugin": "^2.8.2",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
+    "postcss-loader": "^0.9.1",
+    "precss": "^1.4.0",
     "style-loader": "^0.13.0"
   }
 }
