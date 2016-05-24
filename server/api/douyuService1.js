@@ -5,6 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.searchLiveRoom = undefined;
 
+
+//异步函数
+
 var searchLiveRoom = exports.searchLiveRoom = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(keyword) {
         var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
@@ -29,6 +32,9 @@ var searchLiveRoom = exports.searchLiveRoom = function () {
         return ref.apply(this, arguments);
     };
 }();
+
+//解析斗鱼的html
+
 
 exports.formatJsonByHtml = formatJsonByHtml;
 
@@ -55,38 +61,73 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 function formatJsonByHtml(rawHtml) {
     var $ = _cheerio2.default.load(rawHtml);
 
-    var $list_a = $('ul.search_result_list>li>a').toArray();
-    var $list_img = $('ul.search_result_list>li span.img img').toArray();
-    var $list_title = $('ul.search_result_list>li span.title').toArray();
-    var $list_type = $('ul.search_result_list>li span.zbName').toArray();
-    var $list_nick = $('ul.search_result_list>li .moreMes .nnt').toArray();
-    var $list_person = $('ul.search_result_list>li .moreMes .view').toArray();
-    var $list_isliving = $('ul.search_result_list>li i.icon_live').toArray();
-
-    var jsonList = new Array($list_a.length);
-    for (var i = 0; i < $list_a.length; i++) {
+    var $list = $('ul.search_result_list>li>a').toArray();
+    var jsonList = new Array($list.length);
+    for (var i = 0; i < $list.length; i++) {
         jsonList[i] = {
-            title: $list_title[i].children[0].data,
-            href: $list_a[i].attribs.href,
-            img: $list_img[i].attribs['data-original'],
-            type: $list_type[i].children[0].data,
-            nick: $list_nick[i].children[0].data,
-            person: $list_person[i].children[0].data,
-            isliving: !!$list_isliving[i] ? true : false
+            title: '',
+            href: '',
+            img: '',
+            nick: '',
+            person: 0,
+            type: '',
+            isliving: false
         };
+        var $children = getVideoHrefAndTitle(jsonList[i], $list[i]);
+        getOtherAttribute(jsonList[i], $children);
     }
 
-    var total = 0;
-    try {
-        var $page = $('#turn-page .ui-button:not(.next)').toArray();
-        total = $page[$page.length - 1].children[0].data * 15;
-    } catch (err) {}
+    var $page = $('#turn-page .ui-button:not(.next)').toArray();
+    var total = $page[$page.length - 1].children[0].data * 15;
 
     return {
         status: 200,
         total: total,
         items: jsonList
     };
+}
+
+function getVideoHrefAndTitle(item, $html) {
+    item.href = $html.attribs ? $html.attribs.href : '';
+    return $html.children;
+}
+
+function getOtherAttribute(item, $children) {
+    for (var i = 0; i < $children.length; i += 1) {
+        var $child = $children[i];
+
+        if ($child.type == 'tag' && $child.name == 'span') {
+
+            //获取直播预览图
+            if ($child.attribs && $child.attribs.class == 'img') {
+                var $img = $child.children;
+                item.img = $img[0].attribs['data-original'];
+            }
+        } else if ($child.type == 'tag' && $child.name == 'div') {
+
+            if ($child.attribs && $child.attribs.class == 'mes') {
+
+                for (var j = 0; j < $child.children.length; j++) {
+                    var $ch = $child.children[j];
+
+                    if ($ch.type == 'tag' && $ch.name == 'div' && $ch.attribs.class == 'mesDivOne') {
+
+                        item.title = $ch.children[0].children[0].data;
+                        item.type = $ch.children[1].children[0].data;
+                    } else if ($ch.type == 'tag' && $ch.name == 'div') {
+
+                        item.nick = $ch.children[0].children[0].children[0].data;
+                        item.person = $ch.children[0].children[1].children[0].data;
+                    }
+                }
+            }
+        } else if ($child.type == 'tag' && $child.name == 'i') {
+
+            if ($child.attribs && $child.attribs.class == 'icon_live') {
+                item.isliving = true;
+            }
+        }
+    }
 }
 
 //# sourceMappingURL=douyuService.js.map
