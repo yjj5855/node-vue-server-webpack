@@ -15,7 +15,7 @@ var panda = exports.panda = function () {
                         keyword = req.params.keyword;
                         page = req.query.page;
                         _context.next = 4;
-                        return service.searchLiveRoom(keyword, page);
+                        return pandaService.searchLiveRoom(keyword, page);
 
                     case 4:
                         data = _context.sent;
@@ -69,43 +69,43 @@ var huya = exports.huya = function () {
 
 var douyu = exports.douyu = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(req, res) {
-        var keyword, page, html, list;
+        var keyword, page, html, data;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
                 switch (_context3.prev = _context3.next) {
                     case 0:
                         keyword = req.params.keyword;
                         page = req.query.page;
-                        html = '';
-                        list = {};
-                        _context3.prev = 4;
-                        _context3.next = 7;
+                        html = '', data = {};
+                        _context3.prev = 3;
+                        _context3.next = 6;
                         return douyuService.searchLiveRoom(keyword, page);
 
-                    case 7:
+                    case 6:
                         html = _context3.sent;
 
-                        list = douyuService.formatJsonByHtml(html);
-                        _context3.next = 16;
+                        data = douyuService.formatJsonByHtml(html);
+                        _context3.next = 15;
                         break;
 
-                    case 11:
-                        _context3.prev = 11;
-                        _context3.t0 = _context3['catch'](4);
+                    case 10:
+                        _context3.prev = 10;
+                        _context3.t0 = _context3['catch'](3);
 
                         console.log(_context3.t0);
                         res.json({ status: 200 });
                         res.end();
 
-                    case 16:
-                        res.json(list);
+                    case 15:
 
-                    case 17:
+                        res.json(data);
+
+                    case 16:
                     case 'end':
                         return _context3.stop();
                 }
             }
-        }, _callee3, this, [[4, 11]]);
+        }, _callee3, this, [[3, 10]]);
     }));
 
     return function douyu(_x5, _x6) {
@@ -115,43 +115,43 @@ var douyu = exports.douyu = function () {
 
 var bili = exports.bili = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(req, res) {
-        var keyword, page, html, list;
+        var keyword, page, html, data;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
                 switch (_context4.prev = _context4.next) {
                     case 0:
                         keyword = req.params.keyword;
                         page = req.query.page;
-                        html = '';
-                        list = {};
-                        _context4.prev = 4;
-                        _context4.next = 7;
+                        html = '', data = {};
+                        _context4.prev = 3;
+                        _context4.next = 6;
                         return biliService.searchLiveRoom(keyword, page);
 
-                    case 7:
+                    case 6:
                         html = _context4.sent;
 
-                        list = biliService.formatJsonByHtml(html);
-                        _context4.next = 16;
+                        data = biliService.formatJsonByHtml(html);
+                        _context4.next = 15;
                         break;
 
-                    case 11:
-                        _context4.prev = 11;
-                        _context4.t0 = _context4['catch'](4);
+                    case 10:
+                        _context4.prev = 10;
+                        _context4.t0 = _context4['catch'](3);
 
                         console.log(_context4.t0);
                         res.json({ status: 200 });
                         res.end();
 
-                    case 16:
-                        res.json(list);
+                    case 15:
 
-                    case 17:
+                        res.json(data);
+
+                    case 16:
                     case 'end':
                         return _context4.stop();
                 }
             }
-        }, _callee4, this, [[4, 11]]);
+        }, _callee4, this, [[3, 10]]);
     }));
 
     return function bili(_x7, _x8) {
@@ -161,43 +161,43 @@ var bili = exports.bili = function () {
 
 var zhanqi = exports.zhanqi = function () {
     var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(req, res) {
-        var keyword, page, html, list;
+        var keyword, page, html, data;
         return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
                 switch (_context5.prev = _context5.next) {
                     case 0:
                         keyword = req.params.keyword;
                         page = req.query.page;
-                        html = '';
-                        list = {};
-                        _context5.prev = 4;
-                        _context5.next = 7;
+                        html = '', data = {};
+                        _context5.prev = 3;
+                        _context5.next = 6;
                         return zhanqiService.searchLiveRoom(keyword, page);
 
-                    case 7:
+                    case 6:
                         html = _context5.sent;
 
-                        list = zhanqiService.formatJsonByHtml(html);
-                        _context5.next = 16;
+                        data = zhanqiService.formatJsonByHtml(html);
+                        _context5.next = 15;
                         break;
 
-                    case 11:
-                        _context5.prev = 11;
-                        _context5.t0 = _context5['catch'](4);
+                    case 10:
+                        _context5.prev = 10;
+                        _context5.t0 = _context5['catch'](3);
 
                         console.log(_context5.t0);
                         res.json({ status: 200 });
                         res.end();
 
-                    case 16:
-                        res.json(list);
+                    case 15:
 
-                    case 17:
+                        res.json(data);
+
+                    case 16:
                     case 'end':
                         return _context5.stop();
                 }
             }
-        }, _callee5, this, [[4, 11]]);
+        }, _callee5, this, [[3, 10]]);
     }));
 
     return function zhanqi(_x9, _x10) {
@@ -207,7 +207,7 @@ var zhanqi = exports.zhanqi = function () {
 
 var _pandaService = require('../api/pandaService');
 
-var service = _interopRequireWildcard(_pandaService);
+var pandaService = _interopRequireWildcard(_pandaService);
 
 var _huyaService = require('../api/huyaService');
 
