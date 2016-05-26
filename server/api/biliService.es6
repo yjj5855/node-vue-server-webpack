@@ -14,12 +14,12 @@ export async function searchLiveRoom(keyword,page=1) {
 export function formatJsonByHtml(rawHtml) {
     let $ = cheerio.load(rawHtml);
 
-    let $list_a = $('#list-content .vedioBlock>a').toArray();
-    let $list_img = $('#list-content .listVimg img').toArray();
-    let $list_avatar = $('#list-content .face img').toArray();
-    let $list_title = $('#list-content .listVtitle').toArray();
-    let $list_nick = $('#list-content .upInfo .upTitle').toArray();
-    let $list_person = $('#list-content .upInfo .peopleNum').toArray();
+    let $list_a = $('ul.room-list>li>a').toArray();
+    let $list_img = $('ul.room-list>li .listVimg img').toArray();
+    let $list_avatar = $('ul.room-list>li .face img').toArray();
+    let $list_title = $('ul.room-list>li .listVtitle').toArray();
+    let $list_nick = $('ul.room-list>li .upInfo .upTitle').toArray();
+    let $list_person = $('ul.room-list>li .upInfo .peopleNum').toArray();
     let $list_page = $('ul.page>li>:not(.lastpage)').toArray();
 
     let jsonList = new Array($list_a.length);
