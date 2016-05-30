@@ -6,6 +6,10 @@ var _express = require("express");
 
 var _express2 = _interopRequireDefault(_express);
 
+var _compression = require("compression");
+
+var _compression2 = _interopRequireDefault(_compression);
+
 var _bodyParser = require("body-parser");
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
@@ -64,6 +68,7 @@ if (env === 'development') {
 app.set('view engine', 'html');
 app.engine('.html', require('ejs').__express);
 
+app.use((0, _compression2.default)());
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
 app.use((0, _methodOverride2.default)());

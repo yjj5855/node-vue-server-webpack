@@ -1,6 +1,7 @@
 'use strict'
 import "babel-polyfill"
 import express from "express";
+import compression from 'compression';
 import bodyParser from "body-parser";
 import errorHandler from "errorhandler";
 import methodOverride from "method-override";
@@ -33,6 +34,7 @@ if (env === 'development') {
 app.set('view engine', 'html');
 app.engine('.html', require('ejs').__express)
 
+app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride());
