@@ -10,7 +10,7 @@ import config from './env'
 
 import * as clientApi from './server/routes/clientApi'
 import index from "./server/routes/index"
-import search from './server/routes/search'
+import webhooks from './server/routes/webhooks'
 
 var app = express();
 app.use(errorHandler());
@@ -50,10 +50,7 @@ app.get('/search/:keyword/douyu',index)
 app.get('/search/:keyword/bili',index)
 app.get('/search/:keyword/zhanqi',index)
 app.get('/video',index)
-app.use('/webhooks', function (req, res) {
-    console.log(req.body)
-    res.json(req.body);
-});
+app.use('/webhooks', webhooks);
 
 //api
 app.get('/panda/:keyword',clientApi.panda)
