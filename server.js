@@ -38,10 +38,6 @@ var _index = require("./server/routes/index");
 
 var _index2 = _interopRequireDefault(_index);
 
-var _webhooks = require("./server/routes/webhooks");
-
-var _webhooks2 = _interopRequireDefault(_webhooks);
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -84,7 +80,6 @@ app.get('/search/:keyword/douyu', _index2.default);
 app.get('/search/:keyword/bili', _index2.default);
 app.get('/search/:keyword/zhanqi', _index2.default);
 app.get('/video', _index2.default);
-app.use('/webhooks', _webhooks2.default);
 
 //api
 app.get('/panda/:keyword', clientApi.panda);
