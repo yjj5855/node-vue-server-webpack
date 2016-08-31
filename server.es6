@@ -50,6 +50,10 @@ app.get('/search/:keyword/douyu',index)
 app.get('/search/:keyword/bili',index)
 app.get('/search/:keyword/zhanqi',index)
 app.get('/video',index)
+app.use('/webhooks', function (req, res) {
+    console.log(req.body)
+    res.json(req.body);
+});
 
 //api
 app.get('/panda/:keyword',clientApi.panda)

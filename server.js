@@ -84,6 +84,10 @@ app.get('/search/:keyword/douyu', _index2.default);
 app.get('/search/:keyword/bili', _index2.default);
 app.get('/search/:keyword/zhanqi', _index2.default);
 app.get('/video', _index2.default);
+app.use('/webhooks', function (req, res) {
+    console.log(req.body);
+    res.json(req.body);
+});
 
 //api
 app.get('/panda/:keyword', clientApi.panda);
