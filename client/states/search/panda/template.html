@@ -3,7 +3,7 @@
     <div class="row" style="margin: 0;">
         <div class="col-50 video-box"
              @click="goRoute('/video?url='+encodeURIComponent('http://m.panda.tv/room.html?roomid='+item.roomid),this)"
-             v-for="item in pandaList.items | filterBy date in 'updatetime'"
+             v-for="item in pandaList.items"
              transition="video-box"
              stagger="100">
             <span class="video-tag video-tag-online">直播</span>
